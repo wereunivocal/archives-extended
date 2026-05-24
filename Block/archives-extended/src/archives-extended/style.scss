@@ -1,0 +1,32 @@
+/**
+ * Front-end and editor styles for the Archives Extended block.
+ *
+ * Mirrors the layout rules shipped with core/archives so a default-config
+ * block looks identical to a core/archives block in the same theme.
+ */
+
+.wp-block-aex-archives-extended-list,
+.wp-block-aex-archives-extended-dropdown {
+	box-sizing: border-box;
+}
+
+.wp-block-aex-archives-extended-list {
+	list-style: none;
+	padding-left: 0;
+	margin-left: 0;
+
+	&.aligncenter {
+		list-style-position: inside;
+	}
+}
+
+.wp-block-aex-archives-extended-dropdown {
+	.wp-block-aex-archives-extended__label {
+		display: block;
+		margin-bottom: 0.5em;
+	}
+
+	select {
+		max-width: 100%;
+	}
+}

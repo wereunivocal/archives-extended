@@ -2,6 +2,7 @@
 
 namespace AEX\Core;
 
+use AEX\Blocks\ArchivesExtendedBlock;
 use AEX\Core\Admin;
 use AEX\Widgets\ArchivesExtended;
 
@@ -81,6 +82,7 @@ class App {
 			}
 		);
 
+		( new ArchivesExtendedBlock() )->init();
 		( new Admin() )->init();
 	}
 }
