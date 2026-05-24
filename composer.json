@@ -1,0 +1,30 @@
+{
+  "name": "univocal/archives-extended",
+  "description": "An extended version of the Archives Widget, with additional options for custom Post Types and additional CSS Classes.",
+  "version": "1.0.0",
+  "type": "wordpress-plugin",
+  "license": "GPL-3.0-or-later",
+  "authors": [
+    {
+      "name": "Univocal",
+      "email": "contact@univocal.co"
+    }
+  ],
+  "require": {
+    "php": ">=8.1"
+  },
+  "require-dev": {
+    "wp-coding-standards/wpcs": "^3.0",
+    "phpstan/phpstan": "^2.1"
+  },
+  "autoload": {
+    "psr-4": {
+      "AEX\\": "./"
+    }
+  },
+  "config": {
+    "allow-plugins": {
+      "dealerdirect/phpcodesniffer-composer-installer": true
+    }
+  }
+}
