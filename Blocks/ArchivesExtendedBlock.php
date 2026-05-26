@@ -22,9 +22,6 @@ class ArchivesExtendedBlock {
 	 */
 	private const ALLOWED_TYPES = array( 'monthly', 'yearly', 'weekly', 'daily' );
 
-	/**
-	 * Registers the block on the `init` hook.
-	 */
 	public function init(): void {
 		add_action( 'init', array( $this, 'register' ) );
 	}
@@ -83,13 +80,17 @@ class ArchivesExtendedBlock {
 		string $post_type,
 		string $extra_classes
 	): string {
-		$wrapper_class = 'wp-block-aex-archives-extended-dropdown';
+		$wrapper_class = 'wp-block-archives-dropdown wp-block-aex-archives-extended-dropdown';
 		if ( '' !== $extra_classes ) {
 			$wrapper_class .= ' ' . $extra_classes;
 		}
 
+        /**
+         * Again, we're keeping the original widget structure, warts and all,
+         * in order to keep it drop-in compatible with the OG widget.
+         */
 		$dropdown_id = wp_unique_id( 'wp-block-aex-archives-extended-' );
-		$title       = __( 'Archives', 'archives-extended' );
+		$title       = __( 'Archives' );
 
 		/** This filter is documented in wp-includes/widgets/class-wp-widget-archives.php */
 		$dropdown_args = apply_filters(
@@ -99,34 +100,37 @@ class ArchivesExtendedBlock {
 				'format'          => 'option',
 				'show_post_count' => $show_post_count,
 				'post_type'       => $post_type,
+                'echo'            => 0,
 			)
 		);
-
-		$dropdown_args['echo'] = 0;
 
 		$archives = wp_get_archives( $dropdown_args );
 
 		$wrapper_attributes = get_block_wrapper_attributes( array( 'class' => $wrapper_class ) );
 
+        /**
+         * There's no text domain on the strings for the original Block.
+         * Let's keep it this way for compatibility with pre-existing translations.
+         */
 		switch ( $dropdown_args['type'] ?? $type ) {
 			case 'yearly':
-				$label = __( 'Select Year', 'archives-extended' );
+				$label = __( 'Select Year' );
 				break;
 			case 'monthly':
-				$label = __( 'Select Month', 'archives-extended' );
+				$label = __( 'Select Month' );
 				break;
 			case 'daily':
-				$label = __( 'Select Day', 'archives-extended' );
+				$label = __( 'Select Day' );
 				break;
 			case 'weekly':
-				$label = __( 'Select Week', 'archives-extended' );
+				$label = __( 'Select Week' );
 				break;
 			default:
-				$label = __( 'Select Post', 'archives-extended' );
+				$label = __( 'Select Post' );
 				break;
 		}
 
-		$label_class = 'wp-block-aex-archives-extended__label';
+		$label_class = 'wp-block-archives__label wp-block-aex-archives-extended__label';
 		if ( ! $show_label ) {
 			$label_class .= ' screen-reader-text';
 		}
@@ -136,8 +140,60 @@ class ArchivesExtendedBlock {
 		$block_content .= '<option value="">' . esc_html( $label ) . '</option>';
 		$block_content .= $archives;
 		$block_content .= '</select>';
+		$block_content .= $this->build_dropdown_script( $dropdown_id );
 
 		return sprintf( '<div %1$s>%2$s</div>', $wrapper_attributes, $block_content );
+	}
+
+	/**
+	 * Generates the inline navigation script for the archives dropdown.
+	 *
+	 * Mirrors core's `block_core_archives_build_dropdown_script()`
+	 * (wp-includes/blocks/archives.php, WP 6.9.0). Copied locally so the
+	 * block keeps working below that version floor.
+	 *
+	 * @param string $dropdown_id ID of the rendered <select>.
+	 */
+	private function build_dropdown_script( string $dropdown_id ): string {
+		$exports = array( $dropdown_id, home_url() );
+
+		ob_start();
+		?>
+		<script>
+		( ( [ dropdownId, homeUrl ] ) => {
+			const dropdown = document.getElementById( dropdownId );
+			function onSelectChange() {
+				setTimeout( () => {
+					if ( 'escape' === dropdown.dataset.lastkey ) {
+						return;
+					}
+					if ( dropdown.value ) {
+						location.href = dropdown.value;
+					}
+				}, 250 );
+			}
+			function onKeyUp( event ) {
+				if ( 'Escape' === event.key ) {
+					dropdown.dataset.lastkey = 'escape';
+				} else {
+					delete dropdown.dataset.lastkey;
+				}
+			}
+			function onClick() {
+				delete dropdown.dataset.lastkey;
+			}
+			dropdown.addEventListener( 'keyup', onKeyUp );
+			dropdown.addEventListener( 'click', onClick );
+			dropdown.addEventListener( 'change', onSelectChange );
+		} )( <?php echo wp_json_encode( $exports, JSON_HEX_TAG | JSON_UNESCAPED_SLASHES ); ?> );
+		</script>
+		<?php
+		$script = (string) ob_get_clean();
+
+		return wp_get_inline_script_tag(
+			trim( str_replace( array( '<script>', '</script>' ), '', $script ) ) .
+			"\n//# sourceURL=" . rawurlencode( __METHOD__ )
+		);
 	}
 
 	/**
@@ -156,7 +212,7 @@ class ArchivesExtendedBlock {
 		string $extra_classes,
 		string $item_classes
 	): string {
-		$wrapper_class = 'wp-block-aex-archives-extended-list';
+		$wrapper_class = 'wp-block-archives-list wp-block-aex-archives-extended-list';
 		if ( '' !== $extra_classes ) {
 			$wrapper_class .= ' ' . $extra_classes;
 		}
@@ -168,10 +224,9 @@ class ArchivesExtendedBlock {
 				'type'            => $type,
 				'show_post_count' => $show_post_count,
 				'post_type'       => $post_type,
+                'echo'            => 0,
 			)
 		);
-
-		$archives_args['echo'] = 0;
 
 		$item_filter = null;
 		if ( '' !== $item_classes ) {
@@ -209,7 +264,7 @@ class ArchivesExtendedBlock {
 			return sprintf(
 				'<div %1$s>%2$s</div>',
 				$wrapper_attributes,
-				esc_html__( 'No archives to show.', 'archives-extended' )
+				esc_html__( 'No archives to show.' )
 			);
 		}
 
