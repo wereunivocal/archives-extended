@@ -4,7 +4,7 @@
  *
  * @package Archives_Widget_Extended
  *
- * @var \AEX\Core\Admin $this Caller context (Admin instance).
+ * @var \AEXWS\Core\Admin $this Caller context (Admin instance).
  */
 
 if ( ! defined( 'ABSPATH' ) ) {

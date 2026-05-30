@@ -5,7 +5,7 @@
  * @package Archives_Widget_Extended
  */
 
-namespace AEX\Blocks;
+namespace AEXWS\Blocks;
 
 use WP_Post_Type;
 
@@ -22,6 +22,12 @@ class ArchivesExtendedBlock {
 	 */
 	private const ALLOWED_TYPES = array( 'monthly', 'yearly', 'weekly', 'daily' );
 
+	/**
+	 *
+	 * Default block initialization
+	 *
+	 * @return void
+	 */
 	public function init(): void {
 		add_action( 'init', array( $this, 'register' ) );
 	}
@@ -30,7 +36,7 @@ class ArchivesExtendedBlock {
 	 * Registers the block type from its compiled metadata.
 	 */
 	public function register(): void {
-		$metadata_dir = AEX_PLUGIN_DIR . 'Block/archives-extended/build/archives-extended';
+		$metadata_dir = AEXWS_PLUGIN_DIR . 'Block/archives-extended/build/archives-extended';
 		if ( ! file_exists( $metadata_dir . '/block.json' ) ) {
 			return;
 		}
@@ -85,12 +91,12 @@ class ArchivesExtendedBlock {
 			$wrapper_class .= ' ' . $extra_classes;
 		}
 
-        /**
-         * Again, we're keeping the original widget structure, warts and all,
-         * in order to keep it drop-in compatible with the OG widget.
-         */
+		/**
+		 * Again, we're keeping the original widget structure, warts and all,
+		 * in order to keep it drop-in compatible with the OG widget.
+		 */
 		$dropdown_id = wp_unique_id( 'wp-block-aex-archives-extended-' );
-		$title       = __( 'Archives' );
+		$title       = __( 'Archives' ); //phpcs:ignore WordPress.WP.I18n.MissingArgDomain
 
 		/** This filter is documented in wp-includes/widgets/class-wp-widget-archives.php */
 		$dropdown_args = apply_filters(
@@ -100,7 +106,7 @@ class ArchivesExtendedBlock {
 				'format'          => 'option',
 				'show_post_count' => $show_post_count,
 				'post_type'       => $post_type,
-                'echo'            => 0,
+				'echo'            => 0,
 			)
 		);
 
@@ -108,25 +114,25 @@ class ArchivesExtendedBlock {
 
 		$wrapper_attributes = get_block_wrapper_attributes( array( 'class' => $wrapper_class ) );
 
-        /**
-         * There's no text domain on the strings for the original Block.
-         * Let's keep it this way for compatibility with pre-existing translations.
-         */
+		/**
+		 * There's no text domain on the strings for the original Block.
+		 * Let's keep it this way for compatibility with pre-existing translations.
+		 */
 		switch ( $dropdown_args['type'] ?? $type ) {
 			case 'yearly':
-				$label = __( 'Select Year' );
+				$label = __( 'Select Year' ); //phpcs:ignore WordPress.WP.I18n.MissingArgDomain
 				break;
 			case 'monthly':
-				$label = __( 'Select Month' );
+				$label = __( 'Select Month' ); //phpcs:ignore WordPress.WP.I18n.MissingArgDomain
 				break;
 			case 'daily':
-				$label = __( 'Select Day' );
+				$label = __( 'Select Day' ); //phpcs:ignore WordPress.WP.I18n.MissingArgDomain
 				break;
 			case 'weekly':
-				$label = __( 'Select Week' );
+				$label = __( 'Select Week' ); //phpcs:ignore WordPress.WP.I18n.MissingArgDomain
 				break;
 			default:
-				$label = __( 'Select Post' );
+				$label = __( 'Select Post' ); //phpcs:ignore WordPress.WP.I18n.MissingArgDomain
 				break;
 		}
 
@@ -224,7 +230,7 @@ class ArchivesExtendedBlock {
 				'type'            => $type,
 				'show_post_count' => $show_post_count,
 				'post_type'       => $post_type,
-                'echo'            => 0,
+				'echo'            => 0,
 			)
 		);
 
@@ -264,7 +270,7 @@ class ArchivesExtendedBlock {
 			return sprintf(
 				'<div %1$s>%2$s</div>',
 				$wrapper_attributes,
-				esc_html__( 'No archives to show.' )
+				esc_html__( 'No archives to show.' ) //phpcs:ignore WordPress.WP.I18n.MissingArgDomain
 			);
 		}
 

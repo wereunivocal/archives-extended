@@ -5,7 +5,7 @@
  * @package Archives_Widget_Extended
  */
 
-namespace AEX\Core;
+namespace AEXWS\Core;
 
 /**
  * Admin menu handler for the Archives Widget Extended settings page.
@@ -39,7 +39,7 @@ class Admin {
 			__( 'Archives Widget Extended', 'archives-extended' ),
 			__( 'Archives Extended', 'archives-extended' ),
 			'manage_options',
-			AEX_PFX,
+			AEXWS_PFX,
 			array( $this, 'render_settings_page' )
 		);
 	}
@@ -52,7 +52,7 @@ class Admin {
 			return;
 		}
 
-		include AEX_PLUGIN_DIR . 'views/settings-page.php';
+		include AEXWS_PLUGIN_DIR . 'views/settings-page.php';
 	}
 
 	/**
@@ -70,10 +70,10 @@ class Admin {
 			return;
 		}
 
-		wp_enqueue_script_module( 'aex-admin', $admin['js'], array(), AEX_VERSION );
+		wp_enqueue_script_module( 'aex-admin', $admin['js'], array(), AEXWS_VERSION );
 		if ( $admin['css'] ) {
 			foreach ( $admin['css'] as $index => $css_url ) {
-				wp_enqueue_style( 'aex-admin-' . $index, $css_url, array(), AEX_VERSION );
+				wp_enqueue_style( 'aex-admin-' . $index, $css_url, array(), AEXWS_VERSION );
 			}
 		}
 	}
