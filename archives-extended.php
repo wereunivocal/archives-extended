@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Plugin Name: Archives Widget Extended
  * Plugin URI: https://archives-extended.univocal.co/
@@ -11,29 +10,34 @@
  * Requires at least: 6.8
  * Tested up to: 7.1
  * Requires PHP: 8.1
+ *
+ * @package Archives_Widget_Extended
  */
 
-use AEX\Core\App;
+use AEXWS\Core\App;
 
 
 // Prevent direct access
-if (!defined('ABSPATH')) {
-    exit;
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
 }
 
 // Define plugin constants
-define('AEX_VERSION', '1.0.0');
-define('AEX_PLUGIN_DIR', plugin_dir_path(__FILE__));
-define('AEX_PLUGIN_URL', plugin_dir_url(__FILE__));
-define('AEX_PFX', 'archives-extended');
+define( 'AEXWS_VERSION', '1.0.0' );
+define( 'AEXWS_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
+define( 'AEXWS_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
+define( 'AEXWS_PFX', 'archives-extended' );
 
 // Autoload dependencies
-if (file_exists(AEX_PLUGIN_DIR . 'vendor/autoload.php')) {
-    require_once AEX_PLUGIN_DIR . 'vendor/autoload.php';
+if ( file_exists( AEXWS_PLUGIN_DIR . 'vendor/autoload.php' ) ) {
+	require_once AEXWS_PLUGIN_DIR . 'vendor/autoload.php';
 }
 
 // Initialize the plugin
-add_action('plugins_loaded', function () {
-    $plugin = App::getInstance();
-    $plugin->init();
-});
+add_action(
+	'plugins_loaded',
+	function () {
+		$plugin = App::get_instance();
+		$plugin->init();
+	}
+);

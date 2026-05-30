@@ -5,7 +5,7 @@
  * @package Archives_Widget_Extended
  */
 
-namespace AEX\Widgets;
+namespace AEXWS\Widgets;
 
 use WP_Widget;
 
@@ -18,7 +18,7 @@ use WP_Widget;
  *  - extra_classes: additional CSS classes appended to the widget root.
  *  - item_classes: CSS classes appended to each <li> in the archives list.
  */
-class ArchivesExtended extends WP_Widget {
+class AEXWS_Widget extends WP_Widget {
 
 	/**
 	 * Sets up the widget metadata and registers it with WP_Widget.
@@ -349,13 +349,13 @@ class ArchivesExtended extends WP_Widget {
 			<label for="<?php echo esc_attr( $this->get_field_id( 'item_classes' ) ); ?>"><?php esc_html_e( 'Additional list item classes:', 'archives-extended' ); ?></label>
 			<input class="widefat" id="<?php echo esc_attr( $this->get_field_id( 'item_classes' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'item_classes' ) ); ?>" type="text" value="<?php echo esc_attr( $instance['item_classes'] ); ?>" />
 		</p>
-        <p>
-            <input class="checkbox" type="checkbox"<?php checked( $instance['dropdown'] ); ?> id="<?php echo esc_attr( $this->get_field_id( 'dropdown' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'dropdown' ) ); ?>" />
-            <label for="<?php echo esc_attr( $this->get_field_id( 'dropdown' ) ); ?>"><?php esc_html_e( 'Display as dropdown', 'archives-extended' ); ?></label>
-            <br />
-            <input class="checkbox" type="checkbox"<?php checked( $instance['count'] ); ?> id="<?php echo esc_attr( $this->get_field_id( 'count' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'count' ) ); ?>" />
-            <label for="<?php echo esc_attr( $this->get_field_id( 'count' ) ); ?>"><?php esc_html_e( 'Show post counts', 'archives-extended' ); ?></label>
-        </p>
+		<p>
+			<input class="checkbox" type="checkbox"<?php checked( $instance['dropdown'] ); ?> id="<?php echo esc_attr( $this->get_field_id( 'dropdown' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'dropdown' ) ); ?>" />
+			<label for="<?php echo esc_attr( $this->get_field_id( 'dropdown' ) ); ?>"><?php esc_html_e( 'Display as dropdown', 'archives-extended' ); ?></label>
+			<br />
+			<input class="checkbox" type="checkbox"<?php checked( $instance['count'] ); ?> id="<?php echo esc_attr( $this->get_field_id( 'count' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'count' ) ); ?>" />
+			<label for="<?php echo esc_attr( $this->get_field_id( 'count' ) ); ?>"><?php esc_html_e( 'Show post counts', 'archives-extended' ); ?></label>
+		</p>
 		<?php
 	}
 }
