@@ -1,0 +1,102 @@
+<?xml version="1.0"?>
+<ruleset name="archives-extended">
+    <description>PHPCS rules for the Archives Widget Extended plugin.</description>
+
+    <!-- Scan everything from the plugin root by default. -->
+    <file>.</file>
+
+    <!-- Sniff PHP only. -->
+    <arg name="extensions" value="php"/>
+
+    <!-- Use relative paths in reports, run in parallel, colourise, show progress and rule sources. -->
+    <arg name="basepath" value="."/>
+    <arg name="parallel" value="8"/>
+    <arg name="colors"/>
+    <arg value="sp"/>
+
+    <!-- Cache results so re-runs only re-sniff changed files. -->
+    <arg name="cache" value=".phpcs-cache"/>
+
+    <!--
+        Base ruleset.
+        10up-Default extends WordPress, WordPress-Docs, WordPress-Extra and PHPCompatibilityWP,
+        and pre-excludes WordPress.Files.FileName (which conflicts with PSR-4).
+    -->
+    <rule ref="10up-Default">
+        <!-- Plugin minimum PHP version is 8.1 (see archives-extended.php header). -->
+        <exclude name="PHPCompatibility"/>
+    </rule>
+
+    <!-- Reapply PHPCompatibility with the project's actual PHP floor. -->
+    <rule ref="PHPCompatibilityWP"/>
+    <config name="testVersion" value="8.1-"/>
+
+    <!-- Match the plugin's `Requires at least` header. -->
+    <config name="minimum_supported_wp_version" value="6.8"/>
+
+    <!-- Excluded paths: dependencies and generated output. -->
+    <exclude-pattern>*/vendor/*</exclude-pattern>
+    <exclude-pattern>*/node_modules/*</exclude-pattern>
+    <exclude-pattern>*/dist/*</exclude-pattern>
+    <exclude-pattern>*/Block/*/build/*</exclude-pattern>
+    <exclude-pattern>*/Block/*/node_modules/*</exclude-pattern>
+
+    <!-- Text domain enforcement: every i18n call must use `archives-extended`. -->
+    <rule ref="WordPress.WP.I18n">
+        <properties>
+            <property name="text_domain" type="array">
+                <element value="archives-extended"/>
+            </property>
+        </properties>
+    </rule>
+
+    <!--
+        Plugin-wide prefix list for globals (functions, constants, hooks, classes outside namespaces).
+        Namespaced classes (AEXWS\...) are exempt from this rule, but constants like AEXWS_PLUGIN_DIR need it.
+    -->
+    <rule ref="WordPress.NamingConventions.PrefixAllGlobals">
+        <properties>
+            <property name="prefixes" type="array">
+                <element value="AEXWS"/>
+                <element value="aexws"/>
+                <element value="archives_extended"/>
+            </property>
+        </properties>
+    </rule>
+
+    <!--
+        Test files: relax rules that don't fit PHPUnit patterns.
+        Each rule below is suppressed only within tests/, leaving production code fully sniffed.
+    -->
+    <rule ref="Squiz.Commenting.ClassComment.Missing">
+        <exclude-pattern>tests/*</exclude-pattern>
+    </rule>
+    <rule ref="Squiz.Commenting.FileComment.Missing">
+        <exclude-pattern>tests/*</exclude-pattern>
+    </rule>
+    <rule ref="Squiz.Commenting.FunctionComment.Missing">
+        <exclude-pattern>tests/*</exclude-pattern>
+    </rule>
+    <rule ref="Squiz.Commenting.FunctionComment.MissingParamTag">
+        <exclude-pattern>tests/*</exclude-pattern>
+    </rule>
+    <rule ref="Generic.Commenting.DocComment.Missing">
+        <exclude-pattern>tests/*</exclude-pattern>
+    </rule>
+    <rule ref="WordPress.NamingConventions.PrefixAllGlobals">
+        <exclude-pattern>tests/*</exclude-pattern>
+    </rule>
+    <rule ref="WordPress.NamingConventions.ValidVariableName">
+        <exclude-pattern>tests/*</exclude-pattern>
+    </rule>
+    <rule ref="WordPress.DB.DirectDatabaseQuery">
+        <exclude-pattern>tests/*</exclude-pattern>
+    </rule>
+    <rule ref="WordPress.DB.SlowDBQuery">
+        <exclude-pattern>tests/*</exclude-pattern>
+    </rule>
+
+    <rule ref="WordPress">
+        <exclude name="WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound"/>
+    </rule>
+</ruleset>
