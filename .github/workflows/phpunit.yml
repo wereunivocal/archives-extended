@@ -1,0 +1,58 @@
+name: PHPUnit Tests
+
+#credits: https://raw.githubusercontent.com/pattonwebz/wp-phpunit-scaffold/refs/heads/master/scaffold/.github/workflows/phpunit.yml
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main, develop ]
+
+jobs:
+  test:
+    name: PHP ${{ matrix.php-version }}
+    runs-on: ubuntu-latest
+
+    services:
+      mysql:
+        image: mysql:8.4
+        env:
+          MYSQL_DATABASE: wordpress
+          MYSQL_USER: wordpress
+          MYSQL_PASSWORD: wordpress
+          MYSQL_ROOT_PASSWORD: root
+        ports:
+          - 3306:3306
+        options: >-
+          --health-cmd="mysqladmin ping"
+          --health-interval=10s
+          --health-timeout=5s
+          --health-retries=3
+
+    strategy:
+      fail-fast: false
+      matrix:
+        php-version: [ '8.1', '8.2', '8.3', '8.4' ]
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php-version }}
+          extensions: mysqli
+          tools: composer
+
+      - name: Install Composer dependencies
+        run: composer install --prefer-dist --no-progress --no-interaction
+
+      - name: Install SVN
+        run: sudo apt-get install -y subversion
+
+      - name: Install WordPress test suite
+        run: bash tests/scripts/install-wp-tests.sh wordpress wordpress wordpress 127.0.0.1 latest
+
+      - name: Run PHPUnit
+        run: ./vendor/bin/phpunit --colors=always
