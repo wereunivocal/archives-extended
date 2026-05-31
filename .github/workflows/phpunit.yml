@@ -1,7 +1,5 @@
 name: PHPUnit Tests
 
-#credits: https://raw.githubusercontent.com/pattonwebz/wp-phpunit-scaffold/refs/heads/master/scaffold/.github/workflows/phpunit.yml
-
 on:
   push:
     branches: [ main, develop ]
@@ -13,46 +11,41 @@ jobs:
     name: PHP ${{ matrix.php-version }}
     runs-on: ubuntu-latest
 
-    services:
-      mysql:
-        image: mysql:8.4
-        env:
-          MYSQL_DATABASE: wordpress
-          MYSQL_USER: wordpress
-          MYSQL_PASSWORD: wordpress
-          MYSQL_ROOT_PASSWORD: root
-        ports:
-          - 3306:3306
-        options: >-
-          --health-cmd="mysqladmin ping"
-          --health-interval=10s
-          --health-timeout=5s
-          --health-retries=3
-
     strategy:
       fail-fast: false
       matrix:
         php-version: [ '8.1', '8.2', '8.3', '8.4' ]
 
+    env:
+      WP_ENV_PHP_VERSION: ${{ matrix.php-version }}
+
     steps:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Setup PHP
-        uses: shivammathur/setup-php@v2
+      - name: Setup Node
+        uses: actions/setup-node@v4
         with:
-          php-version: ${{ matrix.php-version }}
-          extensions: mysqli
-          tools: composer
+          node-version: '20'
 
-      - name: Install Composer dependencies
-        run: composer install --prefer-dist --no-progress --no-interaction
+      - name: Install npm dependencies (root)
+        run: npm ci
 
-      - name: Install SVN
-        run: sudo apt-get install -y subversion
+      - name: Install npm dependencies (block) and build
+        working-directory: Block/archives-extended
+        run: |
+          npm ci
+          npm run build
 
-      - name: Install WordPress test suite
-        run: bash tests/scripts/install-wp-tests.sh wordpress wordpress wordpress 127.0.0.1 latest
+      - name: Start wp-env
+        run: npx wp-env start
+
+      - name: Install Composer dependencies (inside wp-env)
+        run: npx wp-env run tests-cli --env-cwd=wp-content/plugins/archives-extended composer install --prefer-dist --no-progress --no-interaction
 
       - name: Run PHPUnit
-        run: ./vendor/bin/phpunit --colors=always
+        run: npm run test:phpunit
+
+      - name: Stop wp-env
+        if: always()
+        run: npx wp-env stop

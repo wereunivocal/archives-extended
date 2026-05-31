@@ -95,8 +95,15 @@
     <rule ref="WordPress.DB.SlowDBQuery">
         <exclude-pattern>tests/*</exclude-pattern>
     </rule>
+    <rule ref="WordPress.NamingConventions.ValidFunctionName">
+        <exclude-pattern>tests/*</exclude-pattern>
+    </rule>
+    <rule ref="Generic.Commenting.DocComment.MissingShort">
+        <exclude-pattern>tests/*</exclude-pattern>
+    </rule>
 
     <rule ref="WordPress">
         <exclude name="WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound"/>
+        <exclude name="WordPress.Files.FileName"/>
     </rule>
 </ruleset>

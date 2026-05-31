@@ -18,7 +18,8 @@
     "phpstan/phpstan": "^2.1",
     "10up/phpcs-composer": "^3.0",
     "phpunit/phpunit": "^9.6",
-    "yoast/phpunit-polyfills": "^1.0"
+    "yoast/phpunit-polyfills": "^1.0",
+    "wp-phpunit/wp-phpunit": "^6.4"
   },
   "scripts": {
     "phpcs": "./vendor/bin/phpcs",
@@ -28,6 +29,11 @@
   "autoload": {
     "psr-4": {
       "AEXWS\\": "./"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "AEXWS\\Tests\\": "tests/"
     }
   },
   "config": {
