@@ -1,15 +1,24 @@
 <?xml version="1.0"?>
 <phpunit
-        bootstrap="tests/bootstrap.php"
-        backupGlobals="false"
-        colors="true"
-        convertErrorsToExceptions="true"
-        convertNoticesToExceptions="true"
-        convertWarningsToExceptions="true"
+	bootstrap="tests/bootstrap.php"
+	backupGlobals="false"
+	colors="true"
+	beStrictAboutTestsThatDoNotTestAnything="true"
+	beStrictAboutOutputDuringTests="true"
+	failOnWarning="true"
+	failOnRisky="true"
 >
-    <testsuites>
-        <testsuite name="Tests for Extended Widgets">
-            <directory>./tests/</directory>
-        </testsuite>
-    </testsuites>
+	<testsuites>
+		<testsuite name="widgets">
+			<directory>./tests/Widgets/</directory>
+		</testsuite>
+		<testsuite name="blocks">
+			<directory>./tests/Blocks/</directory>
+		</testsuite>
+	</testsuites>
+	<php>
+		<const name="WP_TESTS_DOMAIN" value="example.org"/>
+		<const name="WP_TESTS_EMAIL" value="admin@example.org"/>
+		<const name="WP_TESTS_TITLE" value="Archives Extended Tests"/>
+	</php>
 </phpunit>
