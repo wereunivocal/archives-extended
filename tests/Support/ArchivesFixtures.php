@@ -11,8 +11,13 @@ trait ArchivesFixtures {
 
 	/**
 	 * Slug used for the temporary custom post type registered during tests.
+	 *
+	 * Kept as a static method (not a const) so the trait stays compatible
+	 * with PHP 8.1, which does not allow constants inside traits.
 	 */
-	protected const AEX_TEST_CPT = 'aex_test_cpt';
+	protected static function aex_test_cpt_slug(): string {
+		return 'aex_test_cpt';
+	}
 
 	/**
 	 * Registers a public CPT with has_archive=true for use in extended-feature tests.
@@ -20,11 +25,11 @@ trait ArchivesFixtures {
 	 * Idempotent: calling twice is a no-op.
 	 */
 	protected static function register_test_cpt(): void {
-		if ( post_type_exists( self::AEX_TEST_CPT ) ) {
+		if ( post_type_exists( self::aex_test_cpt_slug() ) ) {
 			return;
 		}
 		register_post_type(
-			self::AEX_TEST_CPT,
+			self::aex_test_cpt_slug(),
 			array(
 				'public'       => true,
 				'has_archive'  => true,
@@ -43,8 +48,8 @@ trait ArchivesFixtures {
 	 * Removes the test CPT registered by `register_test_cpt()`.
 	 */
 	protected static function unregister_test_cpt(): void {
-		if ( post_type_exists( self::AEX_TEST_CPT ) ) {
-			unregister_post_type( self::AEX_TEST_CPT );
+		if ( post_type_exists( self::aex_test_cpt_slug() ) ) {
+			unregister_post_type( self::aex_test_cpt_slug() );
 		}
 	}
 

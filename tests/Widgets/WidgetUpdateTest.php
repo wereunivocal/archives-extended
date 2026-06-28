@@ -71,11 +71,11 @@ class WidgetUpdateTest extends WP_UnitTestCase {
 
 	public function test_registered_post_type_is_preserved(): void {
 		$instance = ( new AEXWS_Widget() )->update(
-			array( 'post_type' => self::AEX_TEST_CPT ),
+			array( 'post_type' => self::aex_test_cpt_slug() ),
 			array()
 		);
 
-		$this->assertSame( self::AEX_TEST_CPT, $instance['post_type'] );
+		$this->assertSame( self::aex_test_cpt_slug(), $instance['post_type'] );
 	}
 
 	public function test_class_list_is_normalized_and_deduplicated(): void {

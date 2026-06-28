@@ -33,17 +33,18 @@ class WidgetExtendedFeaturesTest extends WP_UnitTestCase {
 	public function set_up(): void {
 		parent::set_up();
 		$this->seed_posts( 'post' );
-		$this->seed_posts( self::AEX_TEST_CPT );
+		$this->seed_posts( self::aex_test_cpt_slug() );
 	}
 
 	public function test_custom_post_type_archives_are_rendered(): void {
 		$html = $this->render(
-			array( 'post_type' => self::AEX_TEST_CPT )
+			array( 'post_type' => self::aex_test_cpt_slug() )
 		);
 
-		// The CPT archive URLs include the rewrite slug we registered.
+		// Pretty permalinks aren't enabled in the test env, so the CPT
+		// shows up as a query parameter on the archive URL.
 		$this->assertStringContainsString(
-			'/aex-test-cpt/',
+			'post_type=' . self::aex_test_cpt_slug(),
 			$html,
 			'Expected at least one CPT archive link to appear in the output.'
 		);
