@@ -20,9 +20,11 @@ class Admin {
 	private ?string $page_hook = null;
 
 	/**
-	 * Registers admin-side hooks. No-op outside the admin context.
+	 * Registers plugin hooks for both frontend and admin contexts.
 	 */
 	public function init(): void {
+		add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_frontend_assets' ) );
+
 		if ( ! is_admin() ) {
 			return;
 		}
@@ -76,5 +78,21 @@ class Admin {
 				wp_enqueue_style( 'aex-admin-' . $index, $css_url, array(), AEXWS_VERSION );
 			}
 		}
+	}
+
+	/**
+	 * Enqueues the admin asset bundle on the frontend when the widget is active.
+	 */
+	public function enqueue_frontend_assets(): void {
+		if ( ! is_active_widget( false, false, 'archives_extended' ) ) {
+			return;
+		}
+
+		$asset = App::vite_asset( 'assets/scripts/admin.js' );
+		if ( ! $asset ) {
+			return;
+		}
+
+		wp_enqueue_script_module( 'aex-admin', $asset['js'], array(), AEXWS_VERSION );
 	}
 }

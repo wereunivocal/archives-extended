@@ -1,9 +1,11 @@
 {
 	"name": "archives-extended",
-	"version": "0.1.0",
+	"version": "1.0.0",
 	"private": true,
-	"description": "Tooling for the Archives Widget Extended plugin (wp-env test harness).",
+	"description": "Tooling for the Archives Widget Extended plugin.",
 	"scripts": {
+		"build": "vite build",
+		"dev": "vite",
 		"wp-env": "wp-env",
 		"wp-env:start": "wp-env start",
 		"wp-env:stop": "wp-env stop",
@@ -11,6 +13,7 @@
 		"test:phpunit": "wp-env run tests-cli --env-cwd=wp-content/plugins/archives-extended ./vendor/bin/phpunit"
 	},
 	"devDependencies": {
-		"@wordpress/env": "^10.0.0"
+		"@wordpress/env": "^10.0.0",
+		"vite": "^5.0.0"
 	}
 }

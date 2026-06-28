@@ -1,7 +1,7 @@
 {
   "name": "univocal/archives-extended",
   "description": "An extended version of the Archives Widget, with additional options for custom Post Types and additional CSS Classes.",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "type": "wordpress-plugin",
   "license": "GPL-2.0-or-later",
   "authors": [
@@ -29,7 +29,12 @@
   "autoload": {
     "psr-4": {
       "AEXWS\\": "./"
-    }
+    },
+    "classmap": [
+      "Core/",
+      "Widgets/",
+      "Blocks/"
+    ]
   },
   "autoload-dev": {
     "psr-4": {
