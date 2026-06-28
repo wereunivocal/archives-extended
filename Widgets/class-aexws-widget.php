@@ -161,7 +161,7 @@ class AEXWS_Widget extends WP_Widget {
 			$dropdown_id = "{$this->id_base}-dropdown-{$this->number}";
 			?>
 			<label class="screen-reader-text" for="<?php echo esc_attr( $dropdown_id ); ?>"><?php echo esc_html( $title ); ?></label>
-			<select id="<?php echo esc_attr( $dropdown_id ); ?>" name="archive-dropdown">
+			<select id="<?php echo esc_attr( $dropdown_id ); ?>" name="archive-dropdown" data-aexws-dropdown>
 				<?php
 				/** This filter is documented in wp-includes/widgets/class-wp-widget-archives.php */
 				$dropdown_args = apply_filters(
@@ -197,38 +197,6 @@ class AEXWS_Widget extends WP_Widget {
 				<?php wp_get_archives( $dropdown_args ); ?>
 			</select>
 			<?php
-			ob_start();
-			?>
-<script>
-( ( dropdownId ) => {
-	const dropdown = document.getElementById( dropdownId );
-	function onSelectChange() {
-		setTimeout( () => {
-			if ( 'escape' === dropdown.dataset.lastkey ) {
-				return;
-			}
-			if ( dropdown.value ) {
-				document.location.href = dropdown.value;
-			}
-		}, 250 );
-	}
-	function onKeyUp( event ) {
-		if ( 'Escape' === event.key ) {
-			dropdown.dataset.lastkey = 'escape';
-		} else {
-			delete dropdown.dataset.lastkey;
-		}
-	}
-	function onClick() {
-		delete dropdown.dataset.lastkey;
-	}
-	dropdown.addEventListener( 'keyup', onKeyUp );
-	dropdown.addEventListener( 'click', onClick );
-	dropdown.addEventListener( 'change', onSelectChange );
-})( <?php echo wp_json_encode( $dropdown_id, JSON_HEX_TAG | JSON_UNESCAPED_SLASHES ); ?> );
-</script>
-			<?php
-			wp_print_inline_script_tag( wp_remove_surrounding_empty_script_tags( ob_get_clean() ) . "\n//# sourceURL=" . rawurlencode( __METHOD__ ) );
 		} else {
 			$format = current_theme_supports( 'html5', 'navigation-widgets' ) ? 'html5' : 'xhtml';
 
