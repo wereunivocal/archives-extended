@@ -211,7 +211,11 @@ trait HtmlAssertions {
 				if ( false === $tokens ) {
 					$tokens = array();
 				}
-				$tokens = array_values( array_filter( $tokens, static fn ( $t ) => '' !== $t ) );
+				$tokens = array_filter( $tokens, static fn ( $t ) => '' !== $t );
+				// Treat class as a set: dedupe so callers comparing class
+				// lists don't fail on cosmetic duplicates introduced by
+				// namespace normalization.
+				$tokens = array_values( array_unique( $tokens ) );
 				sort( $tokens );
 				$value = implode( ' ', $tokens );
 			}

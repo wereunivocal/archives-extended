@@ -31,16 +31,18 @@ class BlockExtendedFeaturesTest extends WP_UnitTestCase {
 		parent::set_up();
 		$this->skip_if_block_not_registered();
 		$this->seed_posts( 'post' );
-		$this->seed_posts( self::AEX_TEST_CPT );
+		$this->seed_posts( self::aex_test_cpt_slug() );
 	}
 
 	public function test_custom_post_type_archives_are_rendered(): void {
 		$html = $this->render(
-			array( 'postType' => self::AEX_TEST_CPT )
+			array( 'postType' => self::aex_test_cpt_slug() )
 		);
 
+		// Pretty permalinks aren't enabled in the test env, so the CPT
+		// shows up as a query parameter on the archive URL.
 		$this->assertStringContainsString(
-			'/aex-test-cpt/',
+			'post_type=' . self::aex_test_cpt_slug(),
 			$html,
 			'Expected at least one CPT archive link to appear in the block output.'
 		);

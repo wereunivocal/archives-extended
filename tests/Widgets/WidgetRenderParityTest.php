@@ -59,11 +59,27 @@ class WidgetRenderParityTest extends WP_UnitTestCase {
 		// the default-options output, so normalize it before structural compare.
 		$ours_normalized = str_replace( 'archives_extended', 'archives', $ours );
 
+		// Strip inline <script> blocks from both sides before comparing.
+		// Core emits an inline dropdown-navigation script; we replaced it
+		// with an enqueued module bundled by Vite. The behavior is equivalent
+		// but the inline tag is no longer present in our output.
+		$theirs          = $this->strip_inline_scripts( $theirs );
+		$ours_normalized = $this->strip_inline_scripts( $ours_normalized );
+
+		// Also strip our `data-aexws-dropdown` marker attribute used by the
+		// external module to find the <select>. It's an additive hook over
+		// core's structure.
+		$ours_normalized = (string) preg_replace( '/\s+data-aexws-dropdown(?:="[^"]*")?/', '', $ours_normalized );
+
 		$this->assertHtmlStructurallyEquals(
 			$theirs,
 			$ours_normalized,
 			'Output diverged from core WP_Widget_Archives'
 		);
+	}
+
+	private function strip_inline_scripts( string $html ): string {
+		return (string) preg_replace( '#<script\b[^>]*>.*?</script>#s', '', $html );
 	}
 
 	private function render_widget( WP_Widget $widget, array $args, array $instance ): string {

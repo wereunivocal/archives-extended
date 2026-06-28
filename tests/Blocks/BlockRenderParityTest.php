@@ -89,16 +89,24 @@ class BlockRenderParityTest extends WP_UnitTestCase {
 	}
 
 	private function normalize_namespace( string $html ): string {
-		// Drop the `-list` / `-dropdown` suffix variant the wrapper carries.
+		// Strip `data-aex-*` attributes we add for our own JS hooks; these
+		// are deliberate extensions over the core block surface.
+		$html = (string) preg_replace( '/\s+data-aex-[a-z-]+="[^"]*"/', '', $html );
+		// Drop the `-list` / `-dropdown` suffix classes our wrapper carries.
+		// These are additive on top of core's classes, so removing them
+		// (rather than rewriting) leaves the comparable subset intact.
 		$html = (string) preg_replace(
 			'/\s?wp-block-aex-archives-extended-(?:list|dropdown)\b/',
 			'',
 			$html
 		);
-		// Rewrite our id namespace to core's.
+		// Rewrite remaining occurrences of our namespace to core's:
+		// - the auto-generated wrapper class `wp-block-aex-archives-extended`
+		// - the dropdown id prefix `wp-block-aex-archives-extended-<n>`
+		// - the `wp-block-aex-archives-extended__label` namespace label class
 		return (string) str_replace(
-			'wp-block-aex-archives-extended-',
-			'wp-block-archives-',
+			'wp-block-aex-archives-extended',
+			'wp-block-archives',
 			$html
 		);
 	}
