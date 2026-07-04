@@ -2,6 +2,7 @@
 	"name": "archives-extended",
 	"version": "1.0.0",
 	"private": true,
+	"type": "module",
 	"description": "Tooling for the Archives Widget Extended plugin.",
 	"scripts": {
 		"build": "vite build",
@@ -14,6 +15,8 @@
 	},
 	"devDependencies": {
 		"@wordpress/env": "^10.0.0",
+		"autoprefixer": "^10.4.0",
+		"postcss": "^8.4.0",
 		"vite": "^5.0.0"
 	}
 }
