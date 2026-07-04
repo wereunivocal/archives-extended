@@ -1,5 +1,5 @@
 /**
- * Front-end handler for the Archives Extended dropdown variant.
+ * Front-end handler for the Archives Widget Extended dropdown variant.
  *
  * Each archive dropdown is marked with `data-aex-archive-dropdown="1"` by the
  * PHP renderer. Navigating to the selected archive URL on `change` mirrors

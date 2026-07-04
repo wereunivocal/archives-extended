@@ -3,7 +3,7 @@
 	"apiVersion": 3,
 	"name": "aex/archives-extended",
 	"version": "1.0.0",
-	"title": "Archives Extended",
+	"title": "Archives Widget Extended",
 	"category": "widgets",
 	"icon": "archive",
 	"description": "An extended date archive list with custom post type and CSS class options.",

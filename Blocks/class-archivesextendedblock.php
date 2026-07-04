@@ -1,6 +1,6 @@
 <?php
 /**
- * Archives Extended block registration and server-side rendering.
+ * Archives Widget Extended block registration and server-side rendering.
  *
  * @package Archives_Widget_Extended
  */

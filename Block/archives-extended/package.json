@@ -1,7 +1,7 @@
 {
 	"name": "archives-extended",
 	"version": "1.0.0",
-	"description": "Block version of the Archives Extended widget.",
+	"description": "Block version of the Archives Widget Extended.",
 	"author": "Univocal",
 	"license": "GPL-2.0-or-later",
 	"main": "build/index.js",

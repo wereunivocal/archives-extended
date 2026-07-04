@@ -1,5 +1,5 @@
 /**
- * Editor UI for the Archives Extended block.
+ * Editor UI for the Archives Widget Extended block.
  *
  * Preview uses ServerSideRender so the editor reflects exactly what the PHP
  * render callback produces, including post-type-specific archive listings.
