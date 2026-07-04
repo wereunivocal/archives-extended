@@ -1,0 +1,94 @@
+name: Plugin Check
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+  workflow_call:
+
+jobs:
+  plugin-check:
+    name: WordPress Plugin Check
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.1'
+          tools: composer
+          coverage: none
+
+      - name: Install npm dependencies (root) and build
+        run: |
+          npm ci
+          npm run build
+
+      - name: Install npm dependencies (block) and build
+        working-directory: Block/archives-extended
+        run: |
+          npm ci
+          npm run build
+
+      - name: Install Composer runtime dependencies
+        run: composer install --no-dev --optimize-autoloader --prefer-dist --no-progress --no-interaction
+
+      - name: Assemble release artifact
+        run: |
+          set -euo pipefail
+          mkdir -p build/archives-extended
+          rsync -a \
+            --include='/Block/' \
+            --include='/Block/archives-extended/' \
+            --include='/Block/archives-extended/build/***' \
+            --exclude='/Block/archives-extended/*' \
+            --exclude='/.git' \
+            --exclude='/.github' \
+            --exclude='/.claude' \
+            --exclude='/.editorconfig' \
+            --exclude='/.gitignore' \
+            --exclude='/.nvmrc' \
+            --exclude='/.phpcs-cache' \
+            --exclude='/.phpcs.xml.dist' \
+            --exclude='/.wp-env.json' \
+            --exclude='/composer.json' \
+            --exclude='/composer.lock' \
+            --exclude='/package.json' \
+            --exclude='/package-lock.json' \
+            --exclude='/phpcs.xml' \
+            --exclude='/phpunit.xml.dist' \
+            --exclude='/postcss.config.js' \
+            --exclude='/vite.config.js' \
+            --exclude='/tests' \
+            --exclude='/assets' \
+            --exclude='/media' \
+            --exclude='/CHANGELOG.md' \
+            --exclude='/README.md' \
+            --exclude='/build' \
+            --exclude='node_modules' \
+            ./ build/archives-extended/
+
+      - name: List assembled artifact
+        run: find build/archives-extended -maxdepth 3 -print
+
+      - name: Run Plugin Check
+        uses: wordpress/plugin-check-action@v1
+        with:
+          build-dir: build/archives-extended
+
+      - name: Upload release artifact
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: archives-extended-release
+          path: build/archives-extended
+          retention-days: 7
