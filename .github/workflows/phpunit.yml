@@ -5,6 +5,7 @@ on:
     branches: [ main, develop ]
   pull_request:
     branches: [ main, develop ]
+  workflow_call:
 
 jobs:
   test:
@@ -28,8 +29,10 @@ jobs:
         with:
           node-version: '20'
 
-      - name: Install npm dependencies (root)
-        run: npm ci
+      - name: Install npm dependencies (root) and build
+        run: |
+          npm ci
+          npm run build
 
       - name: Install npm dependencies (block) and build
         working-directory: Block/archives-extended

@@ -1,0 +1,166 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - 'v[0-9]*.[0-9]*.[0-9]*'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: release-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  validate-tag:
+    name: Validate tag and version headers
+    runs-on: ubuntu-latest
+    outputs:
+      version: ${{ steps.parse.outputs.version }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Parse and validate tag
+        id: parse
+        run: |
+          set -euo pipefail
+          tag="${GITHUB_REF#refs/tags/}"
+          if [[ ! "$tag" =~ ^v[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
+            echo "::error::Tag '$tag' is not strict SemVer (expected vX.Y.Z)."
+            exit 1
+          fi
+          version="${tag#v}"
+          echo "version=${version}" >> "$GITHUB_OUTPUT"
+          echo "Tag: $tag  Version: $version"
+
+      - name: Verify tag commit is reachable from origin/main
+        run: |
+          set -euo pipefail
+          git fetch origin main
+          if ! git merge-base --is-ancestor "$GITHUB_SHA" origin/main; then
+            echo "::error::Tag commit $GITHUB_SHA is not reachable from origin/main."
+            exit 1
+          fi
+
+      - name: Verify version headers match tag
+        env:
+          VERSION: ${{ steps.parse.outputs.version }}
+        run: |
+          set -euo pipefail
+          fail=0
+          if ! grep -qE "Version:[[:space:]]+${VERSION}([[:space:]]|$)" archives-extended.php; then
+            echo "::error file=archives-extended.php::Plugin header 'Version:' does not match tag ${VERSION}."
+            fail=1
+          fi
+          if ! grep -qE "AEXWS_VERSION',[[:space:]]*'${VERSION}'" archives-extended.php; then
+            echo "::error file=archives-extended.php::AEXWS_VERSION constant does not match tag ${VERSION}."
+            fail=1
+          fi
+          if ! grep -qE "^Stable tag:[[:space:]]+${VERSION}([[:space:]]|$)" readme.txt; then
+            echo "::error file=readme.txt::'Stable tag:' does not match tag ${VERSION}."
+            fail=1
+          fi
+          exit $fail
+
+  phpunit:
+    needs: validate-tag
+    uses: ./.github/workflows/phpunit.yml
+
+  plugin-check:
+    needs: validate-tag
+    uses: ./.github/workflows/plugin-check.yml
+
+  release:
+    name: Build and publish release
+    needs: [ validate-tag, phpunit, plugin-check ]
+    runs-on: ubuntu-latest
+    env:
+      VERSION: ${{ needs.validate-tag.outputs.version }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.1'
+          tools: composer
+          coverage: none
+
+      - name: Install npm dependencies (root) and build
+        run: |
+          npm ci
+          npm run build
+
+      - name: Install npm dependencies (block) and build
+        working-directory: Block/archives-extended
+        run: |
+          npm ci
+          npm run build
+
+      - name: Install Composer runtime dependencies
+        run: composer install --no-dev --optimize-autoloader --prefer-dist --no-progress --no-interaction
+
+      - name: Assemble release artifact
+        run: |
+          set -euo pipefail
+          mkdir -p build/archives-extended
+          rsync -a \
+            --include='/Block/' \
+            --include='/Block/archives-extended/' \
+            --include='/Block/archives-extended/build/***' \
+            --exclude='/Block/archives-extended/*' \
+            --exclude='/.git' \
+            --exclude='/.github' \
+            --exclude='/.claude' \
+            --exclude='/.editorconfig' \
+            --exclude='/.gitignore' \
+            --exclude='/.nvmrc' \
+            --exclude='/.phpcs-cache' \
+            --exclude='/.phpcs.xml.dist' \
+            --exclude='/.wp-env.json' \
+            --exclude='/composer.json' \
+            --exclude='/composer.lock' \
+            --exclude='/package.json' \
+            --exclude='/package-lock.json' \
+            --exclude='/phpcs.xml' \
+            --exclude='/phpunit.xml.dist' \
+            --exclude='/postcss.config.js' \
+            --exclude='/vite.config.js' \
+            --exclude='/tests' \
+            --exclude='/assets' \
+            --exclude='/media' \
+            --exclude='/CHANGELOG.md' \
+            --exclude='/CLAUDE.md' \
+            --exclude='/INTEGRATION-*.md' \
+            --exclude='/README.md' \
+            --exclude='/build' \
+            --exclude='node_modules' \
+            ./ build/archives-extended/
+
+      - name: Create release zip
+        run: |
+          set -euo pipefail
+          cd build
+          zip -rq "../archives-extended-${VERSION}.zip" archives-extended
+          cd ..
+          ls -la "archives-extended-${VERSION}.zip"
+
+      - name: Publish GitHub release
+        uses: softprops/action-gh-release@v2
+        with:
+          name: Release ${{ env.VERSION }}
+          tag_name: ${{ github.ref_name }}
+          files: archives-extended-${{ env.VERSION }}.zip
+          generate_release_notes: true
+          draft: false
+          prerelease: false
