@@ -338,3 +338,4 @@ wp-config.php
 
 # End of https://www.toptal.com/developers/gitignore/api/phpstorm,wordpress,composer,node,macos
 Block/archives-extended/build
+.phpcs-cache
