@@ -106,4 +106,9 @@
         <exclude name="WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound"/>
         <exclude name="WordPress.Files.FileName"/>
     </rule>
+
+    <!-- Make sure we can inline our assets from embedded widgets -->
+    <rule ref="PluginCheck">
+        <exclude name="PluginCheck.CodeAnalysis.Offloading" />
+    </rule>
 </ruleset>
