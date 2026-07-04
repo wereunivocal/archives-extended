@@ -26,7 +26,7 @@ class AEXWS_Widget extends WP_Widget {
 	public function __construct() {
 		parent::__construct(
 			'archives_extended',
-			__( 'Archives Extended', 'archives-extended' ),
+			__( 'Archives Widget Extended', 'archives-extended' ),
 			array(
 				'classname'                   => 'widget_archive',
 				'description'                 => __( 'An extended monthly archive list with custom post type and CSS class options.', 'archives-extended' ),
