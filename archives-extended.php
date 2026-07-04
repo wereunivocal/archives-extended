@@ -5,10 +5,11 @@
  * Description: An extended version of the Archives Widget, with additional options for custom Post Types and additional CSS Classes
  * Version: 1.0.0
  * Author: Univocal
- * License: GPL v3
+ * License: GPL v2
+ * License URI: http://www.gnu.org/licenses/gpl-2.0.html
  * Text Domain: archives-extended
  * Requires at least: 6.8
- * Tested up to: 7.1
+ * Tested up to: 7.0
  * Requires PHP: 8.1
  *
  * @package Archives_Widget_Extended
