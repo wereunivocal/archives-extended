@@ -13,36 +13,167 @@ if ( ! defined( 'ABSPATH' ) ) {
 ?>
 <div class="wrap">
 	<h1><?php esc_html_e( 'Archives Widget Extended', 'archives-extended' ); ?></h1>
+	<div id="poststuff">
+		<div class="aexws-box">
+			<img class="aexws-banner-img" src="<?php echo esc_url( AEXWS_PLUGIN_URL . '/media/banner-1544x500.png' ); ?>" alt="<?php esc_attr_e( 'Archives Widget Extended Banner', 'archives-extended' ); ?>">
+		</div>
+		<div id="post-body" class="metabox-holder columns-2">
 
-	<p><?php esc_html_e( 'Archives Widget Extended is a drop-in replacement for the native Archives widget, with extra options for custom post types and CSS classes.', 'archives-extended' ); ?></p>
+			<!-- main content -->
+			<div id="post-body-content">
 
-	<h2><?php esc_html_e( 'Using the widget', 'archives-extended' ); ?></h2>
-	<p><?php esc_html_e( 'Add the "Archives Extended" widget to any widget area. With its defaults, it produces the same HTML as the stock WordPress Archives widget.', 'archives-extended' ); ?></p>
-	<ul style="list-style: disc; margin-left: 1.5em;">
-		<li>
-			<strong><?php esc_html_e( 'Post type:', 'archives-extended' ); ?></strong>
-			<?php esc_html_e( 'Pick which post type the archive list should cover. Only public post types with an archive page are listed.', 'archives-extended' ); ?>
-		</li>
-		<li>
-			<strong><?php esc_html_e( 'Additional container classes:', 'archives-extended' ); ?></strong>
-			<?php esc_html_e( 'CSS classes added to the widget root element (alongside widget_archive).', 'archives-extended' ); ?>
-		</li>
-		<li>
-			<strong><?php esc_html_e( 'Additional list item classes:', 'archives-extended' ); ?></strong>
-			<?php esc_html_e( 'CSS classes added to every <li> entry in the archives list.', 'archives-extended' ); ?>
-		</li>
-	</ul>
+				<div class="meta-box-sortables ui-sortable">
 
-	<h2><?php esc_html_e( 'Credits', 'archives-extended' ); ?></h2>
-	<p>
-		<?php
-		printf(
-			/* translators: 1: plugin name, 2: author name. */
-			esc_html__( '%1$s is developed by %2$s.', 'archives-extended' ),
-			'<strong>' . esc_html__( 'Archives Widget Extended', 'archives-extended' ) . '</strong>',
-			'<a href="https://archives-extended.univocal.co/">Univocal</a>'
-		);
-		?>
-	</p>
-	<p><?php esc_html_e( 'Released under the GPL v3 license.', 'archives-extended' ); ?></p>
+					<div class="postbox">
+
+						<h2><span><?php esc_html_e( 'A drop-in replacement for the native Archives widget', 'archives-extended' ); ?></span></h2>
+
+						<div class="inside">
+							<p>
+							<?php
+							echo wp_kses(
+								__( '<strong>Archives Widget Extended</strong> is available either in <em>Blocks</em> and <em>Classic Editor</em> form, and fully replaces the native WordPress <em>Archive</em> Widget with extra options for custom post types and CSS classes.', 'archives-extended' ),
+								array(
+									'a'      => array(
+										'class' => array(),
+										'href'  => array(),
+										'rel'   => array(),
+										'title' => array(),
+									),
+									'em'     => array(),
+									'strong' => array(),
+									'br'     => array(),
+								)
+							);
+							?>
+		</p>
+							<p>
+								<?php
+								echo wp_kses(
+									__( 'Source code is also available on <a target="_blank" href="https://github.com/wereunivocal/archives-extended">Github</a>.', 'archives-extended' ),
+									array(
+										'a' => array(
+											'class' => array(),
+											'href'  => array(),
+											'rel'   => array(),
+											'title' => array(),
+										),
+									)
+								);
+								?>
+							</p>
+						</div>
+						<!-- .inside -->
+
+					</div>
+					<div class="postbox">
+
+						<h3><?php esc_html_e( 'Available features', 'archives-extended' ); ?></h3>
+
+						<div class="inside">
+							<ul style="list-style: disc; margin-left: 1.5em;">
+								<li>
+									<strong><?php esc_html_e( 'Support for Custom Post Types:', 'archives-extended' ); ?></strong>
+									<?php esc_html_e( 'Any public content sporting an archive can be shown.', 'archives-extended' ); ?>
+								</li>
+								<li>
+									<strong><?php esc_html_e( 'Additional container and item classes:', 'archives-extended' ); ?></strong>
+									<?php esc_html_e( 'Is it possible to further style the content of each widget by adding custom classes to both the container or items layout.', 'archives-extended' ); ?>
+								</li>
+							</ul>
+						</div>
+						<!-- .inside -->
+
+					</div>
+					<div class="postbox">
+
+						<h2><span><?php esc_html_e( 'About this plugin', 'archives-extended' ); ?></span></h2>
+
+						<div class="inside">
+							<p>
+								<?php
+								echo wp_kses(
+                            sprintf(
+                                /* translators: 1: Plugin Name 2: Current Year 3: Maintainer Address and Name 4: Plugin Repository Link */
+                                esc_html__( '%1$s is Copyright %2$s %3$s. If you think this plugin is useful, please leave a %4$s on wordpress.org! Thank you!', 'archives-extended' ),
+                                '<strong>' . esc_html__( 'Archives Widget Extended', 'archives-extended' ) . '</strong>',
+                                date( 'Y' ),
+                                '<a href="https://www.univocal.co/">Univocal</a>',
+                                '<strong><a target="_blank" href="https://univocal.co/aexws-review">5-stars review</a></strong>'
+                            ),
+                            array(
+                                'a'      => array(
+                                    'class' => array(),
+                                    'href'  => array(),
+                                    'rel'   => array(),
+                                    'title' => array(),
+                                ),
+                                'em'     => array(),
+                                'strong' => array(),
+                                'br'     => array(),
+                            )
+                        );
+                        ?>
+                    </p>
+                </div>
+                <!-- .inside -->
+
+            </div>
+            <!-- .postbox -->
+
+        </div>
+        <!-- .meta-box-sortables .ui-sortable -->
+
+    </div>
+    <!-- post-body-content -->
+
+    <!-- sidebar -->
+    <div id="postbox-container-1" class="postbox-container">
+
+        <div class="meta-box-sortables">
+
+            <div class="postbox">
+
+                <h2><span>
+                <?php
+                esc_attr_e(
+                    'Donate',
+                    'archives-extended'
+                );
+                ?>
+                        </span></h2>
+
+                <div class="inside">
+                    <p>
+                    <?php
+                    echo wp_kses(
+                        __( 'This plugin is free and open source with no "pro" or "lite" versions, and it will always remain so, but <strong>a donation is greatly appreciated</strong>.', 'archives-extended' ),
+                        array(
+                            'strong' => array(),
+                            'br'     => array(),
+                        ),
+                    );
+                    ?>
+                    </p>
+                    <p><?php esc_html_e( 'You can buy me a coffee with the following link:', 'archives-extended' ); ?></p>
+                    <a class="aexws-banner-img" href="https://www.buymeacoffee.com/univocal" target="_blank"><img src="<?= AEXWS_PLUGIN_URL . '/media/default-yellow.png' ?>" alt="Buy Me a Coffee" style="height: 60px !important;width: 217px !important;" ></a>
+                </div>
+                <!-- .inside -->
+
+            </div>
+            <!-- .postbox -->
+
+        </div>
+        <!-- .meta-box-sortables -->
+
+    </div>
+    <!-- #postbox-container-1 .postbox-container -->
+
 </div>
+<!-- #post-body .metabox-holder .columns-2 -->
+
+<br class="clear">
+</div>
+<!-- #poststuff -->
+
+</div> <!-- .wrap -->
