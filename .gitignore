@@ -325,16 +325,10 @@ wp-config.php
 # htaccess
 /.htaccess
 
-# All plugins
-# Note: If you wish to whitelist plugins,
-# uncomment the next line
-#/wp-content/plugins
-
-# All themes
-# Note: If you wish to whitelist themes,
-# uncomment the next line
-#/wp-content/themes
-
+# Claude Code
+.claude
+CLAUDE.md
+INTEGRATION-*.md
 
 # End of https://www.toptal.com/developers/gitignore/api/phpstorm,wordpress,composer,node,macos
 Block/archives-extended/build
