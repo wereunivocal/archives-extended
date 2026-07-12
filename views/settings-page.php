@@ -50,7 +50,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 							<p>
 								<?php
 								echo wp_kses(
-									__( 'Source code is also available on <a target="_blank" href="https://github.com/wereunivocal/archives-extended">Github</a>.', 'archives-extended' ),
+									__( 'Source code is also available on <a target="_blank" rel="noopener noreferrer" href="https://github.com/wereunivocal/archives-extended">Github</a>.', 'archives-extended' ),
 									array(
 										'a' => array(
 											'class' => array(),
@@ -74,11 +74,16 @@ if ( ! defined( 'ABSPATH' ) ) {
 							<ul style="list-style: disc; margin-left: 1.5em;">
 								<li>
 									<strong><?php esc_html_e( 'Support for Custom Post Types:', 'archives-extended' ); ?></strong>
-									<?php esc_html_e( 'Any public content sporting an archive can be shown.', 'archives-extended' ); ?>
+									<?php esc_html_e( 'Works for any content type available in WordPress, as long as their archive is publicly available.', 'archives-extended' ); ?>
 								</li>
 								<li>
 									<strong><?php esc_html_e( 'Additional container and item classes:', 'archives-extended' ); ?></strong>
-									<?php esc_html_e( 'Is it possible to further style the content of each widget by adding custom classes to both the container or items layout.', 'archives-extended' ); ?>
+									<?php
+									echo wp_kses(
+										__( 'Is it possible to further style the content of each widget by their respective <em>Additional Classes</em> field.', 'archives-extended' ),
+										array( 'em' => array() )
+									);
+									?>
 								</li>
 							</ul>
 						</div>
@@ -93,81 +98,81 @@ if ( ! defined( 'ABSPATH' ) ) {
 							<p>
 								<?php
 								echo wp_kses(
-                            sprintf(
-                                /* translators: 1: Plugin Name 2: Current Year 3: Maintainer Address and Name 4: Plugin Repository Link */
-                                esc_html__( '%1$s is Copyright %2$s %3$s. If you think this plugin is useful, please leave a %4$s on wordpress.org! Thank you!', 'archives-extended' ),
-                                '<strong>' . esc_html__( 'Archives Widget Extended', 'archives-extended' ) . '</strong>',
-                                date( 'Y' ),
-                                '<a href="https://www.univocal.co/">Univocal</a>',
-                                '<strong><a target="_blank" href="https://univocal.co/aexws-review">5-stars review</a></strong>'
-                            ),
-                            array(
-                                'a'      => array(
-                                    'class' => array(),
-                                    'href'  => array(),
-                                    'rel'   => array(),
-                                    'title' => array(),
-                                ),
-                                'em'     => array(),
-                                'strong' => array(),
-                                'br'     => array(),
-                            )
-                        );
-                        ?>
-                    </p>
-                </div>
-                <!-- .inside -->
+									sprintf(
+									/* translators: 1: Plugin Name 2: Current Year 3: Maintainer Address and Name 4: Plugin Repository Link */
+										esc_html__( '%1$s is Copyright %2$s %3$s. If you think this plugin is useful, please leave a %4$s on wordpress.org! Thank you!', 'archives-extended' ),
+										'<strong>' . esc_html__( 'Archives Widget Extended', 'archives-extended' ) . '</strong>',
+										gmdate( 'Y' ),
+										'<a href="https://www.univocal.co/">Univocal</a>',
+										'<strong><a target="_blank" rel="noopener noreferrer" href="https://univocal.co/aexws-review">5-stars review</a></strong>'
+									),
+									array(
+										'a'      => array(
+											'class' => array(),
+											'href'  => array(),
+											'rel'   => array(),
+											'title' => array(),
+										),
+										'em'     => array(),
+										'strong' => array(),
+										'br'     => array(),
+									)
+								);
+								?>
+					</p>
+				</div>
+				<!-- .inside -->
 
-            </div>
-            <!-- .postbox -->
+			</div>
+			<!-- .postbox -->
 
-        </div>
-        <!-- .meta-box-sortables .ui-sortable -->
+		</div>
+		<!-- .meta-box-sortables .ui-sortable -->
 
-    </div>
-    <!-- post-body-content -->
+	</div>
+	<!-- post-body-content -->
 
-    <!-- sidebar -->
-    <div id="postbox-container-1" class="postbox-container">
+	<!-- sidebar -->
+	<div id="postbox-container-1" class="postbox-container">
 
-        <div class="meta-box-sortables">
+		<div class="meta-box-sortables">
 
-            <div class="postbox">
+			<div class="postbox">
 
-                <h2><span>
-                <?php
-                esc_attr_e(
-                    'Donate',
-                    'archives-extended'
-                );
-                ?>
-                        </span></h2>
+				<h2><span>
+				<?php
+				esc_html_e(
+					'Donate',
+					'archives-extended'
+				);
+				?>
+						</span></h2>
 
-                <div class="inside">
-                    <p>
-                    <?php
-                    echo wp_kses(
-                        __( 'This plugin is free and open source with no "pro" or "lite" versions, and it will always remain so, but <strong>a donation is greatly appreciated</strong>.', 'archives-extended' ),
-                        array(
-                            'strong' => array(),
-                            'br'     => array(),
-                        ),
-                    );
-                    ?>
-                    </p>
-                    <p><?php esc_html_e( 'You can buy me a coffee with the following link:', 'archives-extended' ); ?></p>
-                    <a class="aexws-banner-img" href="https://www.buymeacoffee.com/univocal" target="_blank"><img src="<?= AEXWS_PLUGIN_URL . '/media/default-yellow.png' ?>" alt="Buy Me a Coffee" style="height: 60px !important;width: 217px !important;" ></a>
-                </div>
-                <!-- .inside -->
+				<div class="inside">
+					<p>
+					<?php
+					echo wp_kses(
+						__( 'This plugin is free and open source with no "pro" or "lite" versions, and it will always remain so, but <strong>a donation is greatly appreciated</strong>.', 'archives-extended' ),
+						array(
+							'strong' => array(),
+							'br'     => array(),
+						),
+					);
+					?>
+					</p>
+					<p><?php esc_html_e( 'You can buy me a coffee with the following link:', 'archives-extended' ); ?></p>
+					<a class="aexws-banner-img" href="https://www.buymeacoffee.com/univocal" target="_blank" rel="noopener noreferrer"><img src="<?php echo esc_url( AEXWS_PLUGIN_URL . '/media/default-yellow.png' ); ?>" alt="Buy Me a Coffee" style="height: 60px !important;width: 217px !important;"></a>
+				</div>
+				<!-- .inside -->
 
-            </div>
-            <!-- .postbox -->
+			</div>
+			<!-- .postbox -->
 
-        </div>
-        <!-- .meta-box-sortables -->
+		</div>
+		<!-- .meta-box-sortables -->
 
-    </div>
-    <!-- #postbox-container-1 .postbox-container -->
+	</div>
+	<!-- #postbox-container-1 .postbox-container -->
 
 </div>
 <!-- #post-body .metabox-holder .columns-2 -->
