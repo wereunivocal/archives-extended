@@ -5,7 +5,7 @@
  * Description: An extended version of the Archives Widget, with additional options for custom Post Types and additional CSS Classes
  * Version: 1.0.0
  * Author: Univocal
- * License: GPL v2
+ * License: GPL v2 or later
  * License URI: http://www.gnu.org/licenses/gpl-2.0.html
  * Text Domain: archives-extended
  * Requires at least: 6.8
