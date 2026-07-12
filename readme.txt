@@ -29,11 +29,16 @@ Upload the Archives plugin to your blog, activate it, and then add your Block or
 
 Download the latest archives-extended.zip archive from the **Releases** tab. Simply unzip and upload the files to your `/wp-content/plugins/` directory.
 
- == Frequently Asked Questions ==
+== Frequently Asked Questions ==
 
- = Your plugin is not working. Can you help me? =
- The quickest way to receive support **Archives Widget Extended** for is to get in touch with us at the official support page
+= Your plugin is not working. Can you help me? =
+The quickest way to receive support **Archives Widget Extended** for is to get in touch with us at the official support page available [here](https://univocal.co/project/archives-widget-extended).
 
+== Screenshots ==
+
+1. Widgets for the Block Editor
+2. Fields available on the Block Editor
+3. Widgets for the Classic Editor
 
 == Changelog ==
 
