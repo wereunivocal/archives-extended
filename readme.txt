@@ -17,9 +17,11 @@ It follows the default Widget guidelines resulting in a drop-in replacement for 
 Supports both Classic and Block Widgets.
 
 = Free and Open Source =
-*Archives Widget Extended* is and will forever be Open Source and Free. No Banners, no license or registration required, no commercial or "Pro" features. You can always download the sources from [Github](https://github.com/wereunivocal/archives-extended).
+**Archives Widget Extended** is and will forever be Open Source and Free. No Banners, no license or registration required, no commercial or "Pro" features. You can always download the sources from [Github](https://github.com/wereunivocal/archives-extended).
 
 If you find this plugin useful, a donation is genuinely appreciated. You can buy me a coffee [here](https://buymeacoffee.com/univocal).
+
+*AI usage disclosure: Plugin written by hand, Debugging & Profiling done with the assistance of Claude Code.*
 
 == Installation ==
 
