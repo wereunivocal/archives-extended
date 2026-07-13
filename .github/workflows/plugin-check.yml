@@ -70,8 +70,12 @@ jobs:
             --exclude='/vite.config.js' \
             --exclude='/tests' \
             --exclude='/assets' \
-            --exclude='/media' \
+            --include='/media/' \
+            --include='/media/plugin/***' \
+            --exclude='/media/*' \
             --exclude='/CHANGELOG.md' \
+            --exclude='/CLAUDE.md' \
+            --exclude='/INTEGRATION-*.md' \
             --exclude='/README.md' \
             --exclude='/build' \
             --exclude='node_modules' \
