@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	<h1><?php esc_html_e( 'Archives Widget Extended', 'archives-extended' ); ?></h1>
 	<div id="poststuff">
 		<div class="aexws-box">
-			<img class="aexws-banner-img" src="<?php echo esc_url( AEXWS_PLUGIN_URL . '/media/banner-1544x500.png' ); ?>" alt="<?php esc_attr_e( 'Archives Widget Extended Banner', 'archives-extended' ); ?>">
+			<img class="aexws-banner-img" src="<?php echo esc_url( AEXWS_PLUGIN_URL . '/media/plugin/banner-1544x500.png' ); ?>" alt="<?php esc_attr_e( 'Archives Widget Extended Banner', 'archives-extended' ); ?>">
 		</div>
 		<div id="post-body" class="metabox-holder columns-2">
 
@@ -161,7 +161,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 					?>
 					</p>
 					<p><?php esc_html_e( 'You can buy me a coffee with the following link:', 'archives-extended' ); ?></p>
-					<a class="aexws-banner-img" href="https://www.buymeacoffee.com/univocal" target="_blank" rel="noopener noreferrer"><img src="<?php echo esc_url( AEXWS_PLUGIN_URL . '/media/default-yellow.png' ); ?>" alt="Buy Me a Coffee" style="height: 60px !important;width: 217px !important;"></a>
+					<a class="aexws-banner-img" href="https://www.buymeacoffee.com/univocal" target="_blank" rel="noopener noreferrer"><img src="<?php echo esc_url( AEXWS_PLUGIN_URL . '/media/plugin/default-yellow.png' ); ?>" alt="Buy Me a Coffee" style="height: 60px !important;width: 217px !important;"></a>
 				</div>
 				<!-- .inside -->
 
