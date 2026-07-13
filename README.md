@@ -13,6 +13,8 @@ Supports both Classic and Block Widgets.
 
 If you find this plugin useful, a donation is genuinely appreciated. You can buy me a coffee [here](https://buymeacoffee.com/univocal).
 
+*AI usage disclosure: Plugin written by hand, Debugging & Profiling done with the assistance of Claude Code.*
+
 ## Requirements
 
 * PHP 8.1+
