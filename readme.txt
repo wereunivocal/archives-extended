@@ -4,7 +4,7 @@ Tags: archive, widget, sidebar, classic widgets, block editor
 Requires at least: 6.8
 Tested up to: 7.0
 Requires PHP: 8.1
-Stable tag: 1.0.0
+Stable tag: 1.0.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -43,6 +43,9 @@ The quickest way to receive support **Archives Widget Extended** for is to get i
 3. Widgets for the Classic Editor
 
 == Changelog ==
+
+= 1.0.1 =
+- Major naming consolidation and review for WordPress Plugin Repository conformance.
 
 = 1.0.0 =
 - Initial Release.
