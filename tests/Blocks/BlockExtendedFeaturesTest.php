@@ -1,6 +1,6 @@
 <?php
 /**
- * Extended-feature tests for aex/archives-extended block render.
+ * Extended-feature tests for aex/archives-widget-extended block render.
  *
  * @package Archives_Widget_Extended
  */
@@ -56,7 +56,7 @@ class BlockExtendedFeaturesTest extends WP_UnitTestCase {
 		$this->assertRootElementHasClasses(
 			array(
 				'wp-block-archives-list',
-				'wp-block-aex-archives-extended-list',
+				'wp-block-aex-archives-widget-extended-list',
 				'block-wrapper-class',
 				'second-class',
 			),
@@ -94,7 +94,7 @@ class BlockExtendedFeaturesTest extends WP_UnitTestCase {
 	private function render( array $attrs ): string {
 		return (string) render_block(
 			array(
-				'blockName'    => 'aex/archives-extended',
+				'blockName'    => 'aex/archives-widget-extended',
 				'attrs'        => $attrs,
 				'innerBlocks'  => array(),
 				'innerHTML'    => '',
@@ -104,10 +104,10 @@ class BlockExtendedFeaturesTest extends WP_UnitTestCase {
 	}
 
 	private function skip_if_block_not_registered(): void {
-		if ( ! WP_Block_Type_Registry::get_instance()->is_registered( 'aex/archives-extended' ) ) {
+		if ( ! WP_Block_Type_Registry::get_instance()->is_registered( 'aex/archives-widget-extended' ) ) {
 			$this->markTestSkipped(
-				'Block aex/archives-extended is not registered. '
-				. 'Run `npm install && npm run build` inside Block/archives-extended/ before running this suite.'
+				'Block aex/archives-widget-extended is not registered. '
+				. 'Run `npm install && npm run build` inside Block/archives-widget-extended/ before running this suite.'
 			);
 		}
 	}

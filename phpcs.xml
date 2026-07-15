@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<ruleset name="archives-extended">
+<ruleset name="archives-widget-extended">
     <description>PHPCS rules for the Archives Widget Extended plugin.</description>
 
     <!-- Scan everything from the plugin root by default. -->
@@ -23,7 +23,7 @@
         and pre-excludes WordPress.Files.FileName (which conflicts with PSR-4).
     -->
     <rule ref="10up-Default">
-        <!-- Plugin minimum PHP version is 8.1 (see archives-extended.php header). -->
+        <!-- Plugin minimum PHP version is 8.1 (see archives-widget-extended.php header). -->
         <exclude name="PHPCompatibility"/>
     </rule>
 
@@ -41,11 +41,11 @@
     <exclude-pattern>*/Block/*/build/*</exclude-pattern>
     <exclude-pattern>*/Block/*/node_modules/*</exclude-pattern>
 
-    <!-- Text domain enforcement: every i18n call must use `archives-extended`. -->
+    <!-- Text domain enforcement: every i18n call must use `archives-widget-extended`. -->
     <rule ref="WordPress.WP.I18n">
         <properties>
             <property name="text_domain" type="array">
-                <element value="archives-extended"/>
+                <element value="archives-widget-extended"/>
             </property>
         </properties>
     </rule>

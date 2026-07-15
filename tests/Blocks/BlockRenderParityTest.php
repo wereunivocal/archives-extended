@@ -1,9 +1,9 @@
 <?php
 /**
- * Output-parity tests: aex/archives-extended block vs core/archives.
+ * Output-parity tests: aex/archives-widget-extended block vs core/archives.
  *
  * The wrapper element on our block deliberately carries an extra
- * `wp-block-aex-archives-extended-*` class, and the dropdown ID is
+ * `wp-block-aex-archives-widget-extended-*` class, and the dropdown ID is
  * namespaced under our slug. Both are normalized away before comparing
  * structurally with core's output.
  *
@@ -54,7 +54,7 @@ class BlockRenderParityTest extends WP_UnitTestCase {
 	 */
 	private function assert_parity( array $attrs ): void {
 		$theirs = $this->render_block_named( 'core/archives', $attrs );
-		$ours   = $this->render_block_named( 'aex/archives-extended', $attrs );
+		$ours   = $this->render_block_named( 'aex/archives-widget-extended', $attrs );
 
 		$ours_normalized = $this->normalize_namespace( $ours );
 
@@ -96,16 +96,16 @@ class BlockRenderParityTest extends WP_UnitTestCase {
 		// These are additive on top of core's classes, so removing them
 		// (rather than rewriting) leaves the comparable subset intact.
 		$html = (string) preg_replace(
-			'/\s?wp-block-aex-archives-extended-(?:list|dropdown)\b/',
+			'/\s?wp-block-aex-archives-widget-extended-(?:list|dropdown)\b/',
 			'',
 			$html
 		);
 		// Rewrite remaining occurrences of our namespace to core's:
-		// - the auto-generated wrapper class `wp-block-aex-archives-extended`
-		// - the dropdown id prefix `wp-block-aex-archives-extended-<n>`
-		// - the `wp-block-aex-archives-extended__label` namespace label class
+		// - the auto-generated wrapper class `wp-block-aex-archives-widget-extended`
+		// - the dropdown id prefix `wp-block-aex-archives-widget-extended-<n>`
+		// - the `wp-block-aex-archives-widget-extended__label` namespace label class
 		return (string) str_replace(
-			'wp-block-aex-archives-extended',
+			'wp-block-aex-archives-widget-extended',
 			'wp-block-archives',
 			$html
 		);
@@ -116,10 +116,10 @@ class BlockRenderParityTest extends WP_UnitTestCase {
 	}
 
 	private function skip_if_block_not_registered(): void {
-		if ( ! WP_Block_Type_Registry::get_instance()->is_registered( 'aex/archives-extended' ) ) {
+		if ( ! WP_Block_Type_Registry::get_instance()->is_registered( 'aex/archives-widget-extended' ) ) {
 			$this->markTestSkipped(
-				'Block aex/archives-extended is not registered. '
-				. 'Run `npm install && npm run build` inside Block/archives-extended/ before running this suite.'
+				'Block aex/archives-widget-extended is not registered. '
+				. 'Run `npm install && npm run build` inside Block/archives-widget-extended/ before running this suite.'
 			);
 		}
 	}

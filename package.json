@@ -1,5 +1,5 @@
 {
-	"name": "archives-extended",
+	"name": "archives-widget-extended",
 	"version": "1.0.0",
 	"private": true,
 	"type": "module",
@@ -11,7 +11,7 @@
 		"wp-env:start": "wp-env start",
 		"wp-env:stop": "wp-env stop",
 		"wp-env:destroy": "wp-env destroy",
-		"test:phpunit": "wp-env run tests-cli --env-cwd=wp-content/plugins/archives-extended ./vendor/bin/phpunit"
+		"test:phpunit": "wp-env run tests-cli --env-cwd=wp-content/plugins/archives-widget-extended ./vendor/bin/phpunit"
 	},
 	"devDependencies": {
 		"@wordpress/env": "^10.0.0",

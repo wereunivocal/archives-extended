@@ -5,12 +5,12 @@
  * block looks identical to a core/archives block in the same theme.
  */
 
-.wp-block-aex-archives-extended-list,
-.wp-block-aex-archives-extended-dropdown {
+.wp-block-aex-archives-widget-extended-list,
+.wp-block-aex-archives-widget-extended-dropdown {
 	box-sizing: border-box;
 }
 
-.wp-block-aex-archives-extended-list {
+.wp-block-aex-archives-widget-extended-list {
 	list-style: none;
 	padding-left: 0;
 	margin-left: 0;
@@ -20,8 +20,8 @@
 	}
 }
 
-.wp-block-aex-archives-extended-dropdown {
-	.wp-block-aex-archives-extended__label {
+.wp-block-aex-archives-widget-extended-dropdown {
+	.wp-block-aex-archives-widget-extended__label {
 		display: block;
 		margin-bottom: 0.5em;
 	}

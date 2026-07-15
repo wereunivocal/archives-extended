@@ -29,7 +29,7 @@ Upload the Archives plugin to your blog, activate it, and then add your Block or
 
 = Download from Github =
 
-Download the latest archives-extended.zip archive from the **Releases** tab. Simply unzip and upload the files to your `/wp-content/plugins/` directory.
+Download the latest archives-widget-extended.zip archive from the **Releases** tab. Simply unzip and upload the files to your `/wp-content/plugins/` directory.
 
 == Frequently Asked Questions ==
 

@@ -15,7 +15,7 @@ use WP_Post_Type;
  */
 class ArchivesExtendedBlock {
 
-	private const BLOCK_NAME = 'aex/archives-extended';
+	private const BLOCK_NAME = 'aex/archives-widget-extended';
 
 	/**
 	 * Allowed values for the `type` attribute.
@@ -36,7 +36,7 @@ class ArchivesExtendedBlock {
 	 * Registers the block type from its compiled metadata.
 	 */
 	public function register(): void {
-		$metadata_dir = AEXWS_PLUGIN_DIR . 'Block/archives-extended/build/archives-extended';
+		$metadata_dir = AEXWS_PLUGIN_DIR . 'Block/archives-widget-extended/build/archives-widget-extended';
 		if ( ! file_exists( $metadata_dir . '/block.json' ) ) {
 			return;
 		}
@@ -86,7 +86,7 @@ class ArchivesExtendedBlock {
 		string $post_type,
 		string $extra_classes
 	): string {
-		$wrapper_class = 'wp-block-archives-dropdown wp-block-aex-archives-extended-dropdown';
+		$wrapper_class = 'wp-block-archives-dropdown wp-block-aex-archives-widget-extended-dropdown';
 		if ( '' !== $extra_classes ) {
 			$wrapper_class .= ' ' . $extra_classes;
 		}
@@ -95,7 +95,7 @@ class ArchivesExtendedBlock {
 		 * Again, we're keeping the original widget structure, warts and all,
 		 * in order to keep it drop-in compatible with the OG widget.
 		 */
-		$dropdown_id = wp_unique_id( 'wp-block-aex-archives-extended-' );
+		$dropdown_id = wp_unique_id( 'wp-block-aex-archives-widget-extended-' );
 		$title       = __( 'Archives' ); //phpcs:ignore WordPress.WP.I18n.MissingArgDomain
 
 		/** This filter is documented in wp-includes/widgets/class-wp-widget-archives.php */
@@ -136,7 +136,7 @@ class ArchivesExtendedBlock {
 				break;
 		}
 
-		$label_class = 'wp-block-archives__label wp-block-aex-archives-extended__label';
+		$label_class = 'wp-block-archives__label wp-block-aex-archives-widget-extended__label';
 		if ( ! $show_label ) {
 			$label_class .= ' screen-reader-text';
 		}
@@ -218,7 +218,7 @@ class ArchivesExtendedBlock {
 		string $extra_classes,
 		string $item_classes
 	): string {
-		$wrapper_class = 'wp-block-archives-list wp-block-aex-archives-extended-list';
+		$wrapper_class = 'wp-block-archives-list wp-block-aex-archives-widget-extended-list';
 		if ( '' !== $extra_classes ) {
 			$wrapper_class .= ' ' . $extra_classes;
 		}

@@ -1,6 +1,6 @@
 <?php
 /**
- * Attribute validation tests for the aex/archives-extended block.
+ * Attribute validation tests for the aex/archives-widget-extended block.
  *
  * Exercises the private resolve_type / resolve_post_type / sanitize_class_list
  * methods indirectly, via render_block.
@@ -85,14 +85,14 @@ class BlockAttributeValidationTest extends WP_UnitTestCase {
 	}
 
 	/**
-	 * Renders the aex/archives-extended block with the supplied attributes.
+	 * Renders the aex/archives-widget-extended block with the supplied attributes.
 	 *
 	 * @param array<string, mixed> $attrs Block attributes.
 	 */
 	private function render( array $attrs ): string {
 		return (string) render_block(
 			array(
-				'blockName'    => 'aex/archives-extended',
+				'blockName'    => 'aex/archives-widget-extended',
 				'attrs'        => $attrs,
 				'innerBlocks'  => array(),
 				'innerHTML'    => '',
@@ -102,7 +102,7 @@ class BlockAttributeValidationTest extends WP_UnitTestCase {
 	}
 
 	private function normalize_unique_ids( string $html ): string {
-		return (string) preg_replace( '/wp-block-(?:aex-)?archives-(?:extended-)?\d+/', 'wp-block-archives-N', $html );
+		return (string) preg_replace( '/wp-block-(?:aex-)?archives-(?:widget-extended-)?\d+/', 'wp-block-archives-N', $html );
 	}
 
 	private function root_class_attribute( string $html ): string {
@@ -113,10 +113,10 @@ class BlockAttributeValidationTest extends WP_UnitTestCase {
 	}
 
 	private function skip_if_block_not_registered(): void {
-		if ( ! WP_Block_Type_Registry::get_instance()->is_registered( 'aex/archives-extended' ) ) {
+		if ( ! WP_Block_Type_Registry::get_instance()->is_registered( 'aex/archives-widget-extended' ) ) {
 			$this->markTestSkipped(
-				'Block aex/archives-extended is not registered. '
-				. 'Run `npm install && npm run build` inside Block/archives-extended/ before running this suite.'
+				'Block aex/archives-widget-extended is not registered. '
+				. 'Run `npm install && npm run build` inside Block/archives-widget-extended/ before running this suite.'
 			);
 		}
 	}

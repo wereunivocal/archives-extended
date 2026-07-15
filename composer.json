@@ -1,5 +1,5 @@
 {
-  "name": "univocal/archives-extended",
+  "name": "univocal/archives-widget-extended",
   "description": "An extended version of the Archives Widget, with additional options for custom Post Types and additional CSS Classes.",
   "version": "1.0.0",
   "type": "wordpress-plugin",

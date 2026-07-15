@@ -1,4 +1,4 @@
-# Archives Extended
+# Archives Widget Extended
 
 > An Archive Widget with expanded features. Free and Open Source.
 
@@ -24,4 +24,4 @@ If you find this plugin useful, a donation is genuinely appreciated. You can buy
 
 **Download from Github**:
 
-Download the latest archives-extended.zip archive from the **Relases** tab. Simply unzip and upload the files to your `/wp-content/plugins/` directory.
+Download the latest archives-widget-extended.zip archive from the **Releases** tab. Simply unzip and upload the files to your `/wp-content/plugins/` directory.

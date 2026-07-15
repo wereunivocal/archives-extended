@@ -26,10 +26,10 @@ class AEXWS_Widget extends WP_Widget {
 	public function __construct() {
 		parent::__construct(
 			'archives_extended',
-			__( 'Archives Widget Extended', 'archives-extended' ),
+			__( 'Archives Widget Extended', 'archives-widget-extended' ),
 			array(
 				'classname'                   => 'widget_archive',
-				'description'                 => __( 'An extended monthly archive list with custom post type and CSS class options.', 'archives-extended' ),
+				'description'                 => __( 'An extended monthly archive list with custom post type and CSS class options.', 'archives-widget-extended' ),
 				'customize_selective_refresh' => true,
 				'show_instance_in_rest'       => true,
 			)
@@ -96,7 +96,7 @@ class AEXWS_Widget extends WP_Widget {
 	 * @param array $instance Saved widget settings.
 	 */
 	public function widget( $args, $instance ) {
-		$default_title = __( 'Archives', 'archives-extended' );
+		$default_title = __( 'Archives', 'archives-widget-extended' );
 		$title         = ! empty( $instance['title'] ) ? $instance['title'] : $default_title;
 
 		/** This filter is documented in wp-includes/widgets/class-wp-widget-pages.php */
@@ -177,19 +177,19 @@ class AEXWS_Widget extends WP_Widget {
 
 				switch ( $dropdown_args['type'] ) {
 					case 'yearly':
-						$label = __( 'Select Year', 'archives-extended' );
+						$label = __( 'Select Year', 'archives-widget-extended' );
 						break;
 					case 'monthly':
-						$label = __( 'Select Month', 'archives-extended' );
+						$label = __( 'Select Month', 'archives-widget-extended' );
 						break;
 					case 'daily':
-						$label = __( 'Select Day', 'archives-extended' );
+						$label = __( 'Select Day', 'archives-widget-extended' );
 						break;
 					case 'weekly':
-						$label = __( 'Select Week', 'archives-extended' );
+						$label = __( 'Select Week', 'archives-widget-extended' );
 						break;
 					default:
-						$label = __( 'Select Post', 'archives-extended' );
+						$label = __( 'Select Post', 'archives-widget-extended' );
 						break;
 				}
 				?>
@@ -298,11 +298,11 @@ class AEXWS_Widget extends WP_Widget {
 		$post_types = $this->get_available_post_types();
 		?>
 		<p>
-			<label for="<?php echo esc_attr( $this->get_field_id( 'title' ) ); ?>"><?php esc_html_e( 'Title:', 'archives-extended' ); ?></label>
+			<label for="<?php echo esc_attr( $this->get_field_id( 'title' ) ); ?>"><?php esc_html_e( 'Title:', 'archives-widget-extended' ); ?></label>
 			<input class="widefat" id="<?php echo esc_attr( $this->get_field_id( 'title' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'title' ) ); ?>" type="text" value="<?php echo esc_attr( $instance['title'] ); ?>" />
 		</p>
 		<p>
-			<label for="<?php echo esc_attr( $this->get_field_id( 'post_type' ) ); ?>"><?php esc_html_e( 'Post type:', 'archives-extended' ); ?></label>
+			<label for="<?php echo esc_attr( $this->get_field_id( 'post_type' ) ); ?>"><?php esc_html_e( 'Post type:', 'archives-widget-extended' ); ?></label>
 			<select class="widefat" id="<?php echo esc_attr( $this->get_field_id( 'post_type' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'post_type' ) ); ?>">
 				<?php foreach ( $post_types as $slug => $pt ) : ?>
 					<option value="<?php echo esc_attr( $slug ); ?>"<?php selected( $instance['post_type'], $slug ); ?>><?php echo esc_html( $pt->labels->name ); ?></option>
@@ -310,19 +310,19 @@ class AEXWS_Widget extends WP_Widget {
 			</select>
 		</p>
 		<p>
-			<label for="<?php echo esc_attr( $this->get_field_id( 'extra_classes' ) ); ?>"><?php esc_html_e( 'Additional container classes:', 'archives-extended' ); ?></label>
+			<label for="<?php echo esc_attr( $this->get_field_id( 'extra_classes' ) ); ?>"><?php esc_html_e( 'Additional container classes:', 'archives-widget-extended' ); ?></label>
 			<input class="widefat" id="<?php echo esc_attr( $this->get_field_id( 'extra_classes' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'extra_classes' ) ); ?>" type="text" value="<?php echo esc_attr( $instance['extra_classes'] ); ?>" />
 		</p>
 		<p>
-			<label for="<?php echo esc_attr( $this->get_field_id( 'item_classes' ) ); ?>"><?php esc_html_e( 'Additional list item classes:', 'archives-extended' ); ?></label>
+			<label for="<?php echo esc_attr( $this->get_field_id( 'item_classes' ) ); ?>"><?php esc_html_e( 'Additional list item classes:', 'archives-widget-extended' ); ?></label>
 			<input class="widefat" id="<?php echo esc_attr( $this->get_field_id( 'item_classes' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'item_classes' ) ); ?>" type="text" value="<?php echo esc_attr( $instance['item_classes'] ); ?>" />
 		</p>
 		<p>
 			<input class="checkbox" type="checkbox"<?php checked( $instance['dropdown'] ); ?> id="<?php echo esc_attr( $this->get_field_id( 'dropdown' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'dropdown' ) ); ?>" />
-			<label for="<?php echo esc_attr( $this->get_field_id( 'dropdown' ) ); ?>"><?php esc_html_e( 'Display as dropdown', 'archives-extended' ); ?></label>
+			<label for="<?php echo esc_attr( $this->get_field_id( 'dropdown' ) ); ?>"><?php esc_html_e( 'Display as dropdown', 'archives-widget-extended' ); ?></label>
 			<br />
 			<input class="checkbox" type="checkbox"<?php checked( $instance['count'] ); ?> id="<?php echo esc_attr( $this->get_field_id( 'count' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'count' ) ); ?>" />
-			<label for="<?php echo esc_attr( $this->get_field_id( 'count' ) ); ?>"><?php esc_html_e( 'Show post counts', 'archives-extended' ); ?></label>
+			<label for="<?php echo esc_attr( $this->get_field_id( 'count' ) ); ?>"><?php esc_html_e( 'Show post counts', 'archives-widget-extended' ); ?></label>
 		</p>
 		<?php
 	}

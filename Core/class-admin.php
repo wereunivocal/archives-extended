@@ -38,8 +38,8 @@ class Admin {
 	 */
 	public function add_admin_menu(): void {
 		$this->page_hook = add_options_page(
-			__( 'Archives Widget Extended', 'archives-extended' ),
-			__( 'Archives Widget Extended', 'archives-extended' ),
+			__( 'Archives Widget Extended', 'archives-widget-extended' ),
+			__( 'Archives Widget Extended', 'archives-widget-extended' ),
 			'manage_options',
 			AEXWS_PFX,
 			array( $this, 'render_settings_page' )

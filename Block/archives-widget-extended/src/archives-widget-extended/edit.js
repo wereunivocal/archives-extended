@@ -21,10 +21,10 @@ import ServerSideRender from '@wordpress/server-side-render';
 import metadata from './block.json';
 
 const TYPE_OPTIONS = [
-	{ label: __( 'Yearly', 'archives-extended' ), value: 'yearly' },
-	{ label: __( 'Monthly', 'archives-extended' ), value: 'monthly' },
-	{ label: __( 'Weekly', 'archives-extended' ), value: 'weekly' },
-	{ label: __( 'Daily', 'archives-extended' ), value: 'daily' },
+	{ label: __( 'Yearly', 'archives-widget-extended' ), value: 'yearly' },
+	{ label: __( 'Monthly', 'archives-widget-extended' ), value: 'monthly' },
+	{ label: __( 'Weekly', 'archives-widget-extended' ), value: 'weekly' },
+	{ label: __( 'Daily', 'archives-widget-extended' ), value: 'daily' },
 ];
 
 export default function Edit( { attributes, setAttributes } ) {
@@ -45,7 +45,7 @@ export default function Edit( { attributes, setAttributes } ) {
 
 	const postTypeOptions = useMemo( () => {
 		const fallback = [
-			{ label: __( 'Posts', 'archives-extended' ), value: 'post' },
+			{ label: __( 'Posts', 'archives-widget-extended' ), value: 'post' },
 		];
 
 		if ( ! postTypes ) {
@@ -66,7 +66,7 @@ export default function Edit( { attributes, setAttributes } ) {
 		// Ensure `post` is always selectable, mirroring the PHP side.
 		if ( ! filtered.some( ( opt ) => opt.value === 'post' ) ) {
 			filtered.unshift( {
-				label: __( 'Posts', 'archives-extended' ),
+				label: __( 'Posts', 'archives-widget-extended' ),
 				value: 'post',
 			} );
 		}
@@ -79,12 +79,12 @@ export default function Edit( { attributes, setAttributes } ) {
 	return (
 		<>
 			<InspectorControls>
-				<PanelBody title={ __( 'Settings', 'archives-extended' ) }>
+				<PanelBody title={ __( 'Settings', 'archives-widget-extended' ) }>
 					<ToggleControl
 						__nextHasNoMarginBottom
 						label={ __(
 							'Display as dropdown',
-							'archives-extended'
+							'archives-widget-extended'
 						) }
 						checked={ displayAsDropdown }
 						onChange={ ( value ) =>
@@ -96,7 +96,7 @@ export default function Edit( { attributes, setAttributes } ) {
 							__nextHasNoMarginBottom
 							label={ __(
 								'Show label',
-								'archives-extended'
+								'archives-widget-extended'
 							) }
 							checked={ showLabel }
 							onChange={ ( value ) =>
@@ -108,7 +108,7 @@ export default function Edit( { attributes, setAttributes } ) {
 						__nextHasNoMarginBottom
 						label={ __(
 							'Show post counts',
-							'archives-extended'
+							'archives-widget-extended'
 						) }
 						checked={ showPostCounts }
 						onChange={ ( value ) =>
@@ -118,7 +118,7 @@ export default function Edit( { attributes, setAttributes } ) {
 					<SelectControl
 						__nextHasNoMarginBottom
 						__next40pxDefaultSize
-						label={ __( 'Group by', 'archives-extended' ) }
+						label={ __( 'Group by', 'archives-widget-extended' ) }
 						value={ type }
 						options={ TYPE_OPTIONS }
 						onChange={ ( value ) =>
@@ -128,7 +128,7 @@ export default function Edit( { attributes, setAttributes } ) {
 					<SelectControl
 						__nextHasNoMarginBottom
 						__next40pxDefaultSize
-						label={ __( 'Post type', 'archives-extended' ) }
+						label={ __( 'Post type', 'archives-widget-extended' ) }
 						value={ postType }
 						options={ postTypeOptions }
 						onChange={ ( value ) =>
@@ -140,7 +140,7 @@ export default function Edit( { attributes, setAttributes } ) {
 						__next40pxDefaultSize
 						label={ __(
 							'Additional container classes',
-							'archives-extended'
+							'archives-widget-extended'
 						) }
 						value={ extraClasses }
 						onChange={ ( value ) =>
@@ -152,7 +152,7 @@ export default function Edit( { attributes, setAttributes } ) {
 						__next40pxDefaultSize
 						label={ __(
 							'Additional list item classes',
-							'archives-extended'
+							'archives-widget-extended'
 						) }
 						value={ itemClasses }
 						onChange={ ( value ) =>

@@ -12,10 +12,10 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 ?>
 <div class="wrap">
-	<h1><?php esc_html_e( 'Archives Widget Extended', 'archives-extended' ); ?></h1>
+	<h1><?php esc_html_e( 'Archives Widget Extended', 'archives-widget-extended' ); ?></h1>
 	<div id="poststuff">
 		<div class="aexws-box">
-			<img class="aexws-banner-img" src="<?php echo esc_url( AEXWS_PLUGIN_URL . '/media/plugin/banner-1544x500.png' ); ?>" alt="<?php esc_attr_e( 'Archives Widget Extended Banner', 'archives-extended' ); ?>">
+			<img class="aexws-banner-img" src="<?php echo esc_url( AEXWS_PLUGIN_URL . '/media/plugin/banner-1544x500.png' ); ?>" alt="<?php esc_attr_e( 'Archives Widget Extended Banner', 'archives-widget-extended' ); ?>">
 		</div>
 		<div id="post-body" class="metabox-holder columns-2">
 
@@ -26,13 +26,13 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 					<div class="postbox">
 
-						<h2><span><?php esc_html_e( 'A drop-in replacement for the native Archives widget', 'archives-extended' ); ?></span></h2>
+						<h2><span><?php esc_html_e( 'A drop-in replacement for the native Archives widget', 'archives-widget-extended' ); ?></span></h2>
 
 						<div class="inside">
 							<p>
 							<?php
 							echo wp_kses(
-								__( '<strong>Archives Widget Extended</strong> is available either in <em>Blocks</em> and <em>Classic Editor</em> form, and fully replaces the native WordPress <em>Archive</em> Widget with extra options for custom post types and CSS classes.', 'archives-extended' ),
+								__( '<strong>Archives Widget Extended</strong> is available either in <em>Blocks</em> and <em>Classic Editor</em> form, and fully replaces the native WordPress <em>Archive</em> Widget with extra options for custom post types and CSS classes.', 'archives-widget-extended' ),
 								array(
 									'a'      => array(
 										'class' => array(),
@@ -50,7 +50,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 							<p>
 								<?php
 								echo wp_kses(
-									__( 'Source code is also available on <a target="_blank" rel="noopener noreferrer" href="https://github.com/wereunivocal/archives-extended">Github</a>.', 'archives-extended' ),
+									__( 'Source code is also available on <a target="_blank" rel="noopener noreferrer" href="https://github.com/wereunivocal/archives-extended">Github</a>.', 'archives-widget-extended' ),
 									array(
 										'a' => array(
 											'class' => array(),
@@ -68,19 +68,19 @@ if ( ! defined( 'ABSPATH' ) ) {
 					</div>
 					<div class="postbox">
 
-						<h3><?php esc_html_e( 'Available features', 'archives-extended' ); ?></h3>
+						<h3><?php esc_html_e( 'Available features', 'archives-widget-extended' ); ?></h3>
 
 						<div class="inside">
 							<ul style="list-style: disc; margin-left: 1.5em;">
 								<li>
-									<strong><?php esc_html_e( 'Support for Custom Post Types:', 'archives-extended' ); ?></strong>
-									<?php esc_html_e( 'Works for any content type available in WordPress, as long as their archive is publicly available.', 'archives-extended' ); ?>
+									<strong><?php esc_html_e( 'Support for Custom Post Types:', 'archives-widget-extended' ); ?></strong>
+									<?php esc_html_e( 'Works for any content type available in WordPress, as long as their archive is publicly available.', 'archives-widget-extended' ); ?>
 								</li>
 								<li>
-									<strong><?php esc_html_e( 'Additional container and item classes:', 'archives-extended' ); ?></strong>
+									<strong><?php esc_html_e( 'Additional container and item classes:', 'archives-widget-extended' ); ?></strong>
 									<?php
 									echo wp_kses(
-										__( 'Is it possible to further style the content of each widget by their respective <em>Additional Classes</em> field.', 'archives-extended' ),
+										__( 'Is it possible to further style the content of each widget by their respective <em>Additional Classes</em> field.', 'archives-widget-extended' ),
 										array( 'em' => array() )
 									);
 									?>
@@ -92,7 +92,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 					</div>
 					<div class="postbox">
 
-						<h2><span><?php esc_html_e( 'About this plugin', 'archives-extended' ); ?></span></h2>
+						<h2><span><?php esc_html_e( 'About this plugin', 'archives-widget-extended' ); ?></span></h2>
 
 						<div class="inside">
 							<p>
@@ -100,8 +100,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 								echo wp_kses(
 									sprintf(
 									/* translators: 1: Plugin Name 2: Current Year 3: Maintainer Address and Name 4: Plugin Repository Link */
-										esc_html__( '%1$s is Copyright %2$s %3$s. If you think this plugin is useful, please leave a %4$s on wordpress.org! Thank you!', 'archives-extended' ),
-										'<strong>' . esc_html__( 'Archives Widget Extended', 'archives-extended' ) . '</strong>',
+										esc_html__( '%1$s is Copyright %2$s %3$s. If you think this plugin is useful, please leave a %4$s on wordpress.org! Thank you!', 'archives-widget-extended' ),
+										'<strong>' . esc_html__( 'Archives Widget Extended', 'archives-widget-extended' ) . '</strong>',
 										gmdate( 'Y' ),
 										'<a href="https://www.univocal.co/">Univocal</a>',
 										'<strong><a target="_blank" rel="noopener noreferrer" href="https://univocal.co/aexws-review">5-stars review</a></strong>'
@@ -143,7 +143,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 				<?php
 				esc_html_e(
 					'Donate',
-					'archives-extended'
+					'archives-widget-extended'
 				);
 				?>
 						</span></h2>
@@ -152,7 +152,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 					<p>
 					<?php
 					echo wp_kses(
-						__( 'This plugin is free and open source with no "pro" or "lite" versions, and it will always remain so, but <strong>a donation is greatly appreciated</strong>.', 'archives-extended' ),
+						__( 'This plugin is free and open source with no "pro" or "lite" versions, and it will always remain so, but <strong>a donation is greatly appreciated</strong>.', 'archives-widget-extended' ),
 						array(
 							'strong' => array(),
 							'br'     => array(),
@@ -160,7 +160,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 					);
 					?>
 					</p>
-					<p><?php esc_html_e( 'You can buy me a coffee with the following link:', 'archives-extended' ); ?></p>
+					<p><?php esc_html_e( 'You can buy me a coffee with the following link:', 'archives-widget-extended' ); ?></p>
 					<a class="aexws-banner-img" href="https://www.buymeacoffee.com/univocal" target="_blank" rel="noopener noreferrer"><img src="<?php echo esc_url( AEXWS_PLUGIN_URL . '/media/plugin/default-yellow.png' ); ?>" alt="Buy Me a Coffee" style="height: 60px !important;width: 217px !important;"></a>
 				</div>
 				<!-- .inside -->

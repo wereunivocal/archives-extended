@@ -1,14 +1,14 @@
 {
 	"$schema": "https://schemas.wp.org/trunk/block.json",
 	"apiVersion": 3,
-	"name": "aex/archives-extended",
+	"name": "aex/archives-widget-extended",
 	"version": "1.0.0",
 	"title": "Archives Widget Extended",
 	"category": "widgets",
 	"icon": "archive",
 	"description": "An extended date archive list with custom post type and CSS class options.",
 	"keywords": [ "archives", "posts" ],
-	"textdomain": "archives-extended",
+	"textdomain": "archives-widget-extended",
 	"attributes": {
 		"displayAsDropdown": {
 			"type": "boolean",
