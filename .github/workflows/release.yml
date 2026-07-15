@@ -52,12 +52,12 @@ jobs:
         run: |
           set -euo pipefail
           fail=0
-          if ! grep -qE "Version:[[:space:]]+${VERSION}([[:space:]]|$)" archives-extended.php; then
-            echo "::error file=archives-extended.php::Plugin header 'Version:' does not match tag ${VERSION}."
+          if ! grep -qE "Version:[[:space:]]+${VERSION}([[:space:]]|$)" archives-widget-extended.php; then
+            echo "::error file=archives-widget-extended.php::Plugin header 'Version:' does not match tag ${VERSION}."
             fail=1
           fi
-          if ! grep -qE "AEXWS_VERSION',[[:space:]]*'${VERSION}'" archives-extended.php; then
-            echo "::error file=archives-extended.php::AEXWS_VERSION constant does not match tag ${VERSION}."
+          if ! grep -qE "AEXWS_VERSION',[[:space:]]*'${VERSION}'" archives-widget-extended.php; then
+            echo "::error file=archives-widget-extended.php::AEXWS_VERSION constant does not match tag ${VERSION}."
             fail=1
           fi
           if ! grep -qE "^Stable tag:[[:space:]]+${VERSION}([[:space:]]|$)" readme.txt; then
@@ -102,7 +102,7 @@ jobs:
           npm run build
 
       - name: Install npm dependencies (block) and build
-        working-directory: Block/archives-extended
+        working-directory: Block/archives-widget-extended
         run: |
           npm ci
           npm run build
@@ -113,12 +113,13 @@ jobs:
       - name: Assemble release artifact
         run: |
           set -euo pipefail
-          mkdir -p build/archives-extended
+          mkdir -p build/archives-widget-extended
           rsync -a \
             --include='/Block/' \
-            --include='/Block/archives-extended/' \
-            --include='/Block/archives-extended/build/***' \
-            --exclude='/Block/archives-extended/*' \
+            --include='/Block/archives-widget-extended/' \
+            --include='/Block/archives-widget-extended/build/***' \
+            --exclude='/Block/archives-widget-extended/*' \
+            --exclude='/.distignore' \
             --exclude='/.git' \
             --exclude='/.github' \
             --exclude='/.claude' \
@@ -128,7 +129,6 @@ jobs:
             --exclude='/.phpcs-cache' \
             --exclude='/.phpcs.xml.dist' \
             --exclude='/.wp-env.json' \
-            --exclude='/composer.json' \
             --exclude='/composer.lock' \
             --exclude='/package.json' \
             --exclude='/package-lock.json' \
@@ -147,22 +147,22 @@ jobs:
             --exclude='/README.md' \
             --exclude='/build' \
             --exclude='node_modules' \
-            ./ build/archives-extended/
+            ./ build/archives-widget-extended/
 
       - name: Create release zip
         run: |
           set -euo pipefail
           cd build
-          zip -rq "../archives-extended-${VERSION}.zip" archives-extended
+          zip -rq "../archives-widget-extended-${VERSION}.zip" archives-widget-extended
           cd ..
-          ls -la "archives-extended-${VERSION}.zip"
+          ls -la "archives-widget-extended-${VERSION}.zip"
 
       - name: Publish GitHub release
         uses: softprops/action-gh-release@v2
         with:
           name: Release ${{ env.VERSION }}
           tag_name: ${{ github.ref_name }}
-          files: archives-extended-${{ env.VERSION }}.zip
+          files: archives-widget-extended-${{ env.VERSION }}.zip
           generate_release_notes: true
           draft: false
           prerelease: false

@@ -34,7 +34,7 @@ jobs:
           npm run build
 
       - name: Install npm dependencies (block) and build
-        working-directory: Block/archives-extended
+        working-directory: Block/archives-widget-extended
         run: |
           npm ci
           npm run build
@@ -45,12 +45,13 @@ jobs:
       - name: Assemble release artifact
         run: |
           set -euo pipefail
-          mkdir -p build/archives-extended
+          mkdir -p build/archives-widget-extended
           rsync -a \
             --include='/Block/' \
-            --include='/Block/archives-extended/' \
-            --include='/Block/archives-extended/build/***' \
-            --exclude='/Block/archives-extended/*' \
+            --include='/Block/archives-widget-extended/' \
+            --include='/Block/archives-widget-extended/build/***' \
+            --exclude='/Block/archives-widget-extended/*' \
+            --exclude='/.distignore' \
             --exclude='/.git' \
             --exclude='/.github' \
             --exclude='/.claude' \
@@ -60,7 +61,6 @@ jobs:
             --exclude='/.phpcs-cache' \
             --exclude='/.phpcs.xml.dist' \
             --exclude='/.wp-env.json' \
-            --exclude='/composer.json' \
             --exclude='/composer.lock' \
             --exclude='/package.json' \
             --exclude='/package-lock.json' \
@@ -79,20 +79,20 @@ jobs:
             --exclude='/README.md' \
             --exclude='/build' \
             --exclude='node_modules' \
-            ./ build/archives-extended/
+            ./ build/archives-widget-extended/
 
       - name: List assembled artifact
-        run: find build/archives-extended -maxdepth 3 -print
+        run: find build/archives-widget-extended -maxdepth 3 -print
 
       - name: Run Plugin Check
         uses: wordpress/plugin-check-action@v1
         with:
-          build-dir: build/archives-extended
+          build-dir: build/archives-widget-extended
 
       - name: Upload release artifact
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: archives-extended-release
-          path: build/archives-extended
+          name: archives-widget-extended-release
+          path: build/archives-widget-extended
           retention-days: 7

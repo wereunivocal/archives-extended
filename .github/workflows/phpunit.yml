@@ -35,7 +35,7 @@ jobs:
           npm run build
 
       - name: Install npm dependencies (block) and build
-        working-directory: Block/archives-extended
+        working-directory: Block/archives-widget-extended
         run: |
           npm ci
           npm run build
@@ -44,7 +44,7 @@ jobs:
         run: npx wp-env start
 
       - name: Install Composer dependencies (inside wp-env)
-        run: npx wp-env run tests-cli --env-cwd=wp-content/plugins/archives-extended composer install --prefer-dist --no-progress --no-interaction
+        run: npx wp-env run tests-cli --env-cwd=wp-content/plugins/archives-widget-extended composer install --prefer-dist --no-progress --no-interaction
 
       - name: Run PHPUnit
         run: npm run test:phpunit
