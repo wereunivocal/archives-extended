@@ -44,6 +44,9 @@ The quickest way to receive support **Archives Widget Extended** for is to get i
 
 == Changelog ==
 
+= 1.0.1 =
+- Major naming consolidation and review for WordPress Plugin Repository conformance.
+
 = 1.0.0 =
 - Initial Release.
 
