@@ -2,6 +2,9 @@
 	"core": null,
 	"phpVersion": "8.1",
 	"plugins": [ "." ],
+	"mappings": {
+		"wp-content/plugins/archives-widget-extended": "."
+	},
 	"env": {
 		"tests": {
 			"config": {
