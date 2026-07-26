@@ -146,60 +146,8 @@ class ArchivesExtendedBlock {
 		$block_content .= '<option value="">' . esc_html( $label ) . '</option>';
 		$block_content .= $archives;
 		$block_content .= '</select>';
-		$block_content .= $this->build_dropdown_script( $dropdown_id );
 
 		return sprintf( '<div %1$s>%2$s</div>', $wrapper_attributes, $block_content );
-	}
-
-	/**
-	 * Generates the inline navigation script for the archives dropdown.
-	 *
-	 * Mirrors core's `block_core_archives_build_dropdown_script()`
-	 * (wp-includes/blocks/archives.php, WP 6.9.0). Copied locally so the
-	 * block keeps working below that version floor.
-	 *
-	 * @param string $dropdown_id ID of the rendered <select>.
-	 */
-	private function build_dropdown_script( string $dropdown_id ): string {
-		$exports = array( $dropdown_id, home_url() );
-
-		ob_start();
-		?>
-		<script>
-		( ( [ dropdownId, homeUrl ] ) => {
-			const dropdown = document.getElementById( dropdownId );
-			function onSelectChange() {
-				setTimeout( () => {
-					if ( 'escape' === dropdown.dataset.lastkey ) {
-						return;
-					}
-					if ( dropdown.value ) {
-						location.href = dropdown.value;
-					}
-				}, 250 );
-			}
-			function onKeyUp( event ) {
-				if ( 'Escape' === event.key ) {
-					dropdown.dataset.lastkey = 'escape';
-				} else {
-					delete dropdown.dataset.lastkey;
-				}
-			}
-			function onClick() {
-				delete dropdown.dataset.lastkey;
-			}
-			dropdown.addEventListener( 'keyup', onKeyUp );
-			dropdown.addEventListener( 'click', onClick );
-			dropdown.addEventListener( 'change', onSelectChange );
-		} )( <?php echo wp_json_encode( $exports, JSON_HEX_TAG | JSON_UNESCAPED_SLASHES ); ?> );
-		</script>
-		<?php
-		$script = (string) ob_get_clean();
-
-		return wp_get_inline_script_tag(
-			trim( str_replace( array( '<script>', '</script>' ), '', $script ) ) .
-			"\n//# sourceURL=" . rawurlencode( __METHOD__ )
-		);
 	}
 
 	/**
