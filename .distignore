@@ -33,10 +33,10 @@ vendor
 node_modules
 assets/scripts
 assets/styles
-Block/archives-extended/node_modules
-Block/archives-extended/package.json
-Block/archives-extended/package-lock.json
-Block/archives-extended/src
+Block/archives-widget-extended/node_modules
+Block/archives-widget-extended/package.json
+Block/archives-widget-extended/package-lock.json
+Block/archives-widget-extended/src
 media/banner-772x250.png
 media/icon-256x256.png
 media/icon.svg
