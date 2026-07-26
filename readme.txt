@@ -12,7 +12,7 @@ An Archive Widget with expanded features. Free and Open Source.
 
 == Description ==
 
-**Archives Widget Extended** expands the default WordPress Archives Widget with additional options for custom *Post Types* and additional CSS Classes, without weighting down your website.
+**Archives Widget Extended** expands the default WordPress Archives Widget with additional options for custom *Post Types* and additional CSS Classes, without slowing down your website.
 It follows the default Widget guidelines resulting in a drop-in replacement for the default component.
 Supports both Classic and Block Widgets.
 
@@ -25,7 +25,7 @@ If you find this plugin useful, a donation is genuinely appreciated. You can buy
 
 == Installation ==
 
-Upload the Archives plugin to your blog, activate it, and then add your Block or your Widget.
+You can install **Archives Widget Extended** from the Wordpress Plugin Repository. Otherwise you can Upload the **Archives Widget Extended** to your website from **Plugins** > **Add Plugins**, activate it, and then add your Block or your Widget from the **Appearance** section.
 
 = Download from Github =
 
@@ -34,7 +34,7 @@ Download the latest archives-widget-extended.zip archive from the **Releases** t
 == Frequently Asked Questions ==
 
 = Your plugin is not working. Can you help me? =
-The quickest way to receive support **Archives Widget Extended** for is to get in touch with us at the official support page available [here](https://univocal.co/project/archives-widget-extended).
+Submit a Github [issue](https://github.com/wereunivocal/cellula/issues) with all the required details to replicate your problem. We'll try our best to fix it.
 
 == Screenshots ==
 
@@ -43,6 +43,9 @@ The quickest way to receive support **Archives Widget Extended** for is to get i
 3. Widgets for the Classic Editor
 
 == Changelog ==
+
+= 1.0.2 =
+- Removed the inline `<script>` emitted by the block's dropdown variant.
 
 = 1.0.1 =
 - Major naming consolidation and review for WordPress Plugin Repository conformance.

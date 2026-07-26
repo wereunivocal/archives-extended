@@ -4,7 +4,7 @@
 
 ## Overview
 
-**Archives Widget Extended** expands the default WordPress Archives Widget with additional options for custom *Post Types* and additional CSS Classes, without weighting down your website.
+**Archives Widget Extended** expands the default WordPress Archives Widget with additional options for custom *Post Types* and additional CSS Classes, without slowing down your website.
 It follows the default Widget guidelines resulting in a drop-in replacement for the default component.
 Supports both Classic and Block Widgets.
 
