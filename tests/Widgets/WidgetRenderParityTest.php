@@ -78,10 +78,6 @@ class WidgetRenderParityTest extends WP_UnitTestCase {
 		);
 	}
 
-	private function strip_inline_scripts( string $html ): string {
-		return (string) preg_replace( '#<script\b[^>]*>.*?</script>#s', '', $html );
-	}
-
 	private function render_widget( WP_Widget $widget, array $args, array $instance ): string {
 		$widget->_set( 1 );
 		ob_start();

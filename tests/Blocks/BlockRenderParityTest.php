@@ -63,6 +63,14 @@ class BlockRenderParityTest extends WP_UnitTestCase {
 		$theirs_normalized = $this->normalize_unique_ids( $theirs );
 		$ours_normalized   = $this->normalize_unique_ids( $ours_normalized );
 
+		// Strip inline <script> blocks from both sides before comparing.
+		// Core emits an inline dropdown-navigation script; we replaced it
+		// with an enqueued `viewScript` module (see block.json). The
+		// behavior is equivalent but the inline tag is no longer present
+		// in our output.
+		$theirs_normalized = $this->strip_inline_scripts( $theirs_normalized );
+		$ours_normalized   = $this->strip_inline_scripts( $ours_normalized );
+
 		$this->assertHtmlStructurallyEquals(
 			$theirs_normalized,
 			$ours_normalized,
