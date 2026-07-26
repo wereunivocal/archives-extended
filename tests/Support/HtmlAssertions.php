@@ -98,6 +98,19 @@ trait HtmlAssertions {
 	}
 
 	/**
+	 * Strips inline <script>...</script> blocks from an HTML fragment.
+	 *
+	 * Core's archives dropdown emits an inline navigation script; the
+	 * WordPress Plugin Directory disallows raw inline <script> output, so
+	 * our renderers rely on an enqueued module instead and no longer carry
+	 * the tag at all. Callers doing parity comparisons against core strip
+	 * both sides with this before the structural compare.
+	 */
+	protected function strip_inline_scripts( string $html ): string {
+		return (string) preg_replace( '#<script\b[^>]*>.*?</script>#s', '', $html );
+	}
+
+	/**
 	 * Parses an HTML fragment into a DOMDocument with a synthetic <aex-root> wrapper.
 	 *
 	 * The wrapper lets us compare fragments with multiple top-level elements

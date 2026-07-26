@@ -331,5 +331,5 @@ CLAUDE.md
 INTEGRATION-*.md
 
 # End of https://www.toptal.com/developers/gitignore/api/phpstorm,wordpress,composer,node,macos
-Block/archives-extended/build
+Block/archives-widget-extended/build
 .phpcs-cache

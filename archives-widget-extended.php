@@ -3,7 +3,7 @@
  * Plugin Name: Archives Widget Extended
  * Plugin URI: https://archives-widget-extended.univocal.co/
  * Description: An extended version of the Archives Widget, with additional options for custom Post Types and additional CSS Classes
- * Version: 1.0.1
+ * Version: 1.0.2
  * Author: Univocal
  * License: GPL v2 or later
  * License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -24,7 +24,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 // Define plugin constants
-define( 'AEXWS_VERSION', '1.0.1' );
+define( 'AEXWS_VERSION', '1.0.2' );
 define( 'AEXWS_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
 define( 'AEXWS_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
 define( 'AEXWS_PFX', 'archives-widget-extended' );
