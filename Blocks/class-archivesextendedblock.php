@@ -53,7 +53,6 @@ class ArchivesExtendedBlock {
 	/**
 	 * Match core/archives' legacy widget classname on our block for compatibility reasons.
 	 *
-	 *
 	 * @param string      $classname  Classname computed by WP_Widget_Block.
 	 * @param string|null $block_name Name of the first block in the widget content,
 	 *                                null when that content holds no block.
