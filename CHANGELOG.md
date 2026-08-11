@@ -1,5 +1,9 @@
 # Changelog
 
+## [1.0.3] - 2026-08-11
+### Fixed
+- The `.widget_block` class in the root container (needed for backwards compatability) is correctly displayed.
+
 ## [1.0.2] - 2026-07-26
 ### Fixed
 - Removed the inline `<script>` emitted by the block's dropdown variant.

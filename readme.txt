@@ -4,7 +4,7 @@ Tags: archive, widget, sidebar, classic widgets, block editor
 Requires at least: 6.8
 Tested up to: 7.0
 Requires PHP: 8.1
-Stable tag: 1.0.2
+Stable tag: 1.0.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -43,6 +43,10 @@ Submit a Github [issue](https://github.com/wereunivocal/cellula/issues) with all
 3. Widgets for the Classic Editor
 
 == Changelog ==
+
+= [1.0.3] =
+== Fixed ==
+- The `.widget_block` class in the root container (needed for backwards compatibility) is correctly displayed.
 
 = 1.0.2 =
 - Removed the inline `<script>` emitted by the block's dropdown variant.
