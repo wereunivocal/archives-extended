@@ -30,6 +30,7 @@ class ArchivesExtendedBlock {
 	 */
 	public function init(): void {
 		add_action( 'init', array( $this, 'register' ) );
+		add_filter( 'widget_block_dynamic_classname', array( $this, 'filter_widget_classname' ), 10, 2 );
 	}
 
 	/**
@@ -47,6 +48,22 @@ class ArchivesExtendedBlock {
 				'render_callback' => array( $this, 'render' ),
 			)
 		);
+	}
+
+	/**
+	 * Match core/archives' legacy widget classname on our block for compatibility reasons.
+	 *
+	 *
+	 * @param string      $classname  Classname computed by WP_Widget_Block.
+	 * @param string|null $block_name Name of the first block in the widget content,
+	 *                                null when that content holds no block.
+	 */
+	public function filter_widget_classname( string $classname, ?string $block_name ): string {
+		if ( self::BLOCK_NAME !== $block_name ) {
+			return $classname;
+		}
+
+		return 'widget_block widget_archive';
 	}
 
 	/**
