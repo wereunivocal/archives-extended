@@ -43,7 +43,12 @@ export default defineConfig({
         },
     },
     build: {
-        sourcemap: true, // Enable source maps for production builds (CSS and JS)
+        // Off deliberately: source maps are not shipped to users (bin/build-dist.sh
+        // and .distignore both exclude *.map), and emitting them here would leave a
+        // //# sourceMappingURL comment in the bundle pointing at a file that isn't
+        // in the plugin zip — a 404 whenever a visitor opens devtools. The dev
+        // server serves its own source maps regardless of this setting.
+        sourcemap: false,
         assetsDir: '', // Will save the compiled JavaScript files in the root of the dist folder
         manifest: {
             fileName: '.vite/manifest.json'

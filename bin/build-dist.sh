@@ -55,6 +55,7 @@ rsync -a --delete --delete-excluded \
 	--exclude='/.phpcs-cache' \
 	--exclude='/.phpcs.xml.dist' \
 	--exclude='/.phpunit.result.cache' \
+	--exclude='/.wordpress-org' \
 	--exclude='/.wp-env.json' \
 	--exclude='/bin' \
 	--exclude='/composer.lock' \
@@ -78,6 +79,7 @@ rsync -a --delete --delete-excluded \
 	--exclude='/build' \
 	--exclude='node_modules' \
 	--exclude='.DS_Store' \
+	--exclude='*.map' \
 	"${repo_root}/" "${dest}/"
 
 echo "Assembled distributable in ${dest}"
