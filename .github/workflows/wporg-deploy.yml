@@ -1,0 +1,193 @@
+name: Deploy to WordPress.org
+
+# Publishes an already-released tag to the wordpress.org plugin repository.
+#
+# Deliberately dispatch-only: the wordpress.org SVN credentials are a real
+# account password (wp.org has no application passwords), and deploy.sh warns
+# they are plaintext in the runtime context. Nothing reaches wp.org without
+# someone starting this run.
+#
+# Nothing is rebuilt here. The zip asset that `release.yml` already published
+# for the tag is downloaded and handed to the deploy action via BUILD_DIR, so
+# the bytes wp.org receives are the bytes Plugin Check tested and GitHub users
+# download. Requiring that asset to exist is also the CI gate: release.yml only
+# publishes after tag validation, PHPUnit and Plugin Check all pass.
+
+on:
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: 'Release tag to deploy (e.g. v1.0.3)'
+        required: true
+        type: string
+      dry_run:
+        description: 'Rehearse without committing to SVN'
+        required: true
+        type: boolean
+        default: true
+
+permissions:
+  contents: read
+
+concurrency:
+  group: wporg-deploy
+  cancel-in-progress: false
+
+env:
+  SLUG: archives-widget-extended
+
+jobs:
+  deploy:
+    name: Publish to wordpress.org
+    runs-on: ubuntu-latest
+    steps:
+      - name: Parse and validate tag input
+        id: parse
+        env:
+          TAG: ${{ inputs.tag }}
+        run: |
+          set -euo pipefail
+          if [[ ! "$TAG" =~ ^v[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
+            echo "::error::Tag '$TAG' is not strict SemVer (expected vX.Y.Z)."
+            exit 1
+          fi
+          version="${TAG#v}"
+          echo "version=${version}" >> "$GITHUB_OUTPUT"
+          echo "Tag: $TAG  Version: $version  Dry run: ${{ inputs.dry_run }}"
+
+      # The action checks these too, but only after the download and unpack
+      # work below. Fail on the first step instead.
+      - name: Check SVN credentials are present
+        if: ${{ !inputs.dry_run }}
+        env:
+          SVN_USERNAME: ${{ secrets.SVN_USERNAME }}
+          SVN_PASSWORD: ${{ secrets.SVN_PASSWORD }}
+        run: |
+          set -euo pipefail
+          fail=0
+          if [ -z "${SVN_USERNAME}" ]; then
+            echo "::error::Secret SVN_USERNAME is not set."
+            fail=1
+          fi
+          if [ -z "${SVN_PASSWORD}" ]; then
+            echo "::error::Secret SVN_PASSWORD is not set."
+            fail=1
+          fi
+          exit $fail
+
+      # No `ref`: the wp.org assets come from the branch this workflow was
+      # dispatched from, not from the tag. wp.org treats banner/icon/screenshots
+      # as metadata that can be refreshed without a version bump, and tags
+      # predating .wordpress-org/ would otherwise deploy no artwork at all.
+      - name: Checkout
+        uses: actions/checkout@v7
+
+      - name: Download the release artifact
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          TAG: ${{ inputs.tag }}
+          VERSION: ${{ steps.parse.outputs.version }}
+        run: |
+          set -euo pipefail
+          gh release download "$TAG" \
+            --pattern "${SLUG}-${VERSION}.zip" \
+            --dir download
+          ls -la download
+
+      - name: Unpack the release artifact
+        env:
+          VERSION: ${{ steps.parse.outputs.version }}
+        run: |
+          set -euo pipefail
+          mkdir -p build
+          unzip -q "download/${SLUG}-${VERSION}.zip" -d build
+          test -d "build/${SLUG}"
+          find "build/${SLUG}" -maxdepth 2 -print
+
+      # Same checks as release.yml's "Verify version headers match tag", applied
+      # to the artifact rather than the working tree — this workflow can be run
+      # against any tag, so the payload proves its own version.
+      - name: Verify the artifact
+        env:
+          VERSION: ${{ steps.parse.outputs.version }}
+        run: |
+          set -euo pipefail
+          cd "build/${SLUG}"
+          fail=0
+
+          if ! grep -qE "Version:[[:space:]]+${VERSION}([[:space:]]|$)" "${SLUG}.php"; then
+            echo "::error::Artifact plugin header 'Version:' does not match ${VERSION}."
+            fail=1
+          fi
+          if ! grep -qE "AEXWS_VERSION',[[:space:]]*'${VERSION}'" "${SLUG}.php"; then
+            echo "::error::Artifact AEXWS_VERSION constant does not match ${VERSION}."
+            fail=1
+          fi
+          if ! grep -qE "^Stable tag:[[:space:]]+${VERSION}([[:space:]]|$)" readme.txt; then
+            echo "::error::Artifact readme.txt 'Stable tag:' does not match ${VERSION}."
+            fail=1
+          fi
+
+          # Each of these exists only if the corresponding build step ran.
+          for required in \
+            vendor/autoload.php \
+            dist/.vite/manifest.json \
+            Block/${SLUG}/build/blocks-manifest.php
+          do
+            if [ ! -f "$required" ]; then
+              echo "::error::Artifact is incomplete: missing ${required}."
+              fail=1
+            fi
+          done
+
+          # Development files that must never reach users.
+          for forbidden in node_modules .github tests phpstan.neon; do
+            if [ -e "$forbidden" ]; then
+              echo "::error::Artifact contains development path '${forbidden}'."
+              fail=1
+            fi
+          done
+          if [ -n "$(find . -maxdepth 1 -name 'INTEGRATION-*.md' -print -quit)" ]; then
+            echo "::error::Artifact contains INTEGRATION-*.md notes."
+            fail=1
+          fi
+
+          exit $fail
+
+      # deploy.sh only logs a notice when ASSETS_DIR is absent, which would
+      # silently publish the plugin with no banner or icon.
+      - name: Verify wordpress.org assets
+        run: |
+          set -euo pipefail
+          if [ ! -d .wordpress-org ] || [ -z "$(ls -A .wordpress-org)" ]; then
+            echo "::error::.wordpress-org/ is missing or empty; wp.org would get no artwork."
+            exit 1
+          fi
+          ls -la .wordpress-org
+
+      # Pinned to an immutable tag rather than the upstream README's @stable
+      # branch — a moving ref is the wrong thing to hand live credentials.
+      # The action installs subversion itself; it is not present on ubuntu-24.04.
+      - name: Deploy to wordpress.org
+        id: deploy
+        uses: 10up/action-wordpress-plugin-deploy@2.3.0
+        with:
+          dry-run: ${{ inputs.dry_run }}
+          generate-zip: true
+        env:
+          # SLUG is inherited from the workflow-level env above; deploy.sh reads
+          # it straight from the process environment (deploy.sh:54).
+          SVN_USERNAME: ${{ secrets.SVN_USERNAME }}
+          SVN_PASSWORD: ${{ secrets.SVN_PASSWORD }}
+          VERSION: ${{ steps.parse.outputs.version }}
+          BUILD_DIR: ./build/${{ env.SLUG }}
+          ASSETS_DIR: .wordpress-org
+
+      # For diffing against the zip attached to the GitHub release.
+      - name: Upload the zip built from SVN trunk
+        if: always() && steps.deploy.outputs.zip-path != ''
+        uses: actions/upload-artifact@v7
+        with:
+          name: ${{ env.SLUG }}-wporg-${{ steps.parse.outputs.version }}
+          path: ${{ steps.deploy.outputs.zip-path }}
+          retention-days: 7
