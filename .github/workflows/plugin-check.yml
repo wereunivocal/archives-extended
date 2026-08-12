@@ -43,45 +43,7 @@ jobs:
         run: composer install --no-dev --optimize-autoloader --prefer-dist --no-progress --no-interaction
 
       - name: Assemble release artifact
-        run: |
-          set -euo pipefail
-          mkdir -p build/archives-widget-extended
-          rsync -a \
-            --include='/Block/' \
-            --include='/Block/archives-widget-extended/' \
-            --include='/Block/archives-widget-extended/build/***' \
-            --exclude='/Block/archives-widget-extended/*' \
-            --exclude='/.distignore' \
-            --exclude='/.git' \
-            --exclude='/.github' \
-            --exclude='/.claude' \
-            --exclude='/.editorconfig' \
-            --exclude='/.gitignore' \
-            --exclude='/.nvmrc' \
-            --exclude='/.phpcs-cache' \
-            --exclude='/.phpcs.xml.dist' \
-            --exclude='/.wp-env.json' \
-            --exclude='/composer.lock' \
-            --exclude='/package.json' \
-            --exclude='/package-lock.json' \
-            --exclude='/phpcs.xml' \
-            --exclude='/phpstan-bootstrap.php' \
-            --exclude='/phpstan.neon' \
-            --exclude='/phpunit.xml.dist' \
-            --exclude='/postcss.config.js' \
-            --exclude='/vite.config.js' \
-            --exclude='/tests' \
-            --exclude='/assets' \
-            --include='/media/' \
-            --include='/media/plugin/***' \
-            --exclude='/media/*' \
-            --exclude='/CHANGELOG.md' \
-            --exclude='/CLAUDE.md' \
-            --exclude='/INTEGRATION-*.md' \
-            --exclude='/README.md' \
-            --exclude='/build' \
-            --exclude='node_modules' \
-            ./ build/archives-widget-extended/
+        run: ./bin/build-dist.sh build/archives-widget-extended
 
       - name: List assembled artifact
         run: find build/archives-widget-extended -maxdepth 3 -print
