@@ -48,6 +48,17 @@ jobs:
       - name: List assembled artifact
         run: find build/archives-widget-extended -maxdepth 3 -print
 
+      # plugin-check-action writes its own .wp-env.json with `"core": null`
+      # (its wp-version input only understands 'trunk'), which resolves to a
+      # git tag on the WordPress/WordPress mirror — unavailable for hours
+      # after a release. WP_ENV_CORE is the only way to override it.
+      - name: Resolve latest available WordPress
+        run: |
+          set -euo pipefail
+          core="$(bin/wp-core-source.sh)"
+          echo "Using WordPress core source: ${core}"
+          echo "WP_ENV_CORE=${core}" >> "$GITHUB_ENV"
+
       - name: Run Plugin Check
         uses: wordpress/plugin-check-action@v1
         with:

@@ -40,6 +40,17 @@ jobs:
           npm ci
           npm run build
 
+      # wp-env's own "latest" resolves to a git tag on the WordPress/WordPress
+      # mirror, which lags releases and breaks `start` until the sync catches
+      # up. WP_ENV_CORE overrides `core` for every environment, and persists
+      # to the run/stop steps below.
+      - name: Resolve latest available WordPress
+        run: |
+          set -euo pipefail
+          core="$(bin/wp-core-source.sh)"
+          echo "Using WordPress core source: ${core}"
+          echo "WP_ENV_CORE=${core}" >> "$GITHUB_ENV"
+
       - name: Start wp-env
         run: npx wp-env start
 

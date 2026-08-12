@@ -7,11 +7,11 @@
 	"scripts": {
 		"build": "vite build",
 		"dev": "vite",
-		"wp-env": "wp-env",
-		"wp-env:start": "wp-env start",
-		"wp-env:stop": "wp-env stop",
-		"wp-env:destroy": "wp-env destroy",
-		"test:phpunit": "wp-env run tests-cli --env-cwd=wp-content/plugins/archives-widget-extended ./vendor/bin/phpunit"
+		"wp-env": "bin/wp-env.sh",
+		"wp-env:start": "bin/wp-env.sh start",
+		"wp-env:stop": "bin/wp-env.sh stop",
+		"wp-env:destroy": "bin/wp-env.sh destroy",
+		"test:phpunit": "bin/wp-env.sh run tests-cli --env-cwd=wp-content/plugins/archives-widget-extended ./vendor/bin/phpunit"
 	},
 	"devDependencies": {
 		"@wordpress/env": "^10.0.0",
