@@ -1,5 +1,9 @@
 # Changelog
 
+## [1.0.4] - 2026-08-12
+### Fixed
+- The release package no longer ships JavaScript source maps.
+
 ## [1.0.3] - 2026-08-11
 ### Fixed
 - The `.widget_block` class in the root container (needed for backwards compatability) is correctly displayed.
