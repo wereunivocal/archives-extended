@@ -133,6 +133,8 @@ jobs:
             --exclude='/package.json' \
             --exclude='/package-lock.json' \
             --exclude='/phpcs.xml' \
+            --exclude='/phpstan-bootstrap.php' \
+            --exclude='/phpstan.neon' \
             --exclude='/phpunit.xml.dist' \
             --exclude='/postcss.config.js' \
             --exclude='/vite.config.js' \

@@ -21,6 +21,8 @@ multisite.xml
 multisite.xml.dist
 phpcs.xml
 phpcs.xml.dist
+phpstan.neon
+phpstan-bootstrap.php
 postcss.config.js
 vite.config.js
 README.md
