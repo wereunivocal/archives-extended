@@ -92,8 +92,9 @@ class AEXWS_Widget extends WP_Widget {
 	/**
 	 * Renders the widget output.
 	 *
-	 * @param array $args     Sidebar arguments (before_widget, after_widget, etc.).
-	 * @param array $instance Saved widget settings.
+	 * @param array<string, string> $args     Sidebar arguments (before_widget, after_widget, etc.).
+	 * @param array<string, mixed>  $instance Saved widget settings.
+	 * @return void
 	 */
 	public function widget( $args, $instance ) {
 		$default_title = __( 'Archives', 'archives-widget-extended' );
@@ -245,9 +246,9 @@ class AEXWS_Widget extends WP_Widget {
 	/**
 	 * Sanitizes and saves widget instance settings.
 	 *
-	 * @param array $new_instance Submitted form values.
-	 * @param array $old_instance Previously saved values.
-	 * @return array Sanitized settings to persist.
+	 * @param array<string, mixed> $new_instance Submitted form values.
+	 * @param array<string, mixed> $old_instance Previously saved values.
+	 * @return array<string, mixed> Sanitized settings to persist.
 	 */
 	public function update( $new_instance, $old_instance ) {
 		$instance     = $old_instance;
@@ -280,7 +281,7 @@ class AEXWS_Widget extends WP_Widget {
 	/**
 	 * Renders the widget configuration form in the admin sidebar.
 	 *
-	 * @param array $instance Saved widget settings.
+	 * @param array<string, mixed> $instance Saved widget settings.
 	 */
 	public function form( $instance ) {
 		$instance = wp_parse_args(

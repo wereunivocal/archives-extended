@@ -19,12 +19,14 @@
     "10up/phpcs-composer": "^3.0",
     "phpunit/phpunit": "^9.6",
     "yoast/phpunit-polyfills": "^1.0",
-    "wp-phpunit/wp-phpunit": "^6.4"
+    "wp-phpunit/wp-phpunit": "^6.4",
+    "szepeviktor/phpstan-wordpress": "^2.0"
   },
   "scripts": {
     "phpcs": "./vendor/bin/phpcs",
     "phpcbf": "./vendor/bin/phpcbf",
-    "phpunit": "./vendor/bin/phpunit"
+    "phpunit": "./vendor/bin/phpunit",
+    "phpstan": "./vendor/bin/phpstan analyse --memory-limit=1G"
   },
   "autoload": {
     "psr-4": {
