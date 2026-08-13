@@ -17,7 +17,7 @@ on:
   workflow_dispatch:
     inputs:
       tag:
-        description: 'Release tag to deploy (e.g. v1.0.4)'
+        description: 'Release tag to deploy (e.g. v1.0.5)'
         required: true
         type: string
       dry_run:
@@ -55,9 +55,17 @@ jobs:
           echo "version=${version}" >> "$GITHUB_OUTPUT"
           echo "Tag: $TAG  Version: $version  Dry run: ${{ inputs.dry_run }}"
 
-      # The action checks these too, but only after the download and unpack
-      # work below. Fail on the first step instead.
-      - name: Check SVN credentials are present
+      # The action checks for presence too, but only after the download and
+      # unpack work below. Fail on the first step instead, and check shape as
+      # well as presence: a stray newline pasted into a secret is invisible in
+      # the GitHub UI and surfaces as an opaque `svn: E215004` at commit time.
+      #
+      # `dry-run` never authenticates against .org, so it cannot validate these.
+      # Wrong credentials can only ever surface on a real run.
+      #
+      # Values are never printed — only lengths and yes/no answers. GitHub masks
+      # the secrets themselves, so a leaked value would appear as *** anyway.
+      - name: Check SVN credentials
         if: ${{ !inputs.dry_run }}
         env:
           SVN_USERNAME: ${{ secrets.SVN_USERNAME }}
@@ -65,14 +73,42 @@ jobs:
         run: |
           set -euo pipefail
           fail=0
-          if [ -z "${SVN_USERNAME}" ]; then
-            echo "::error::Secret SVN_USERNAME is not set."
-            fail=1
-          fi
-          if [ -z "${SVN_PASSWORD}" ]; then
-            echo "::error::Secret SVN_PASSWORD is not set."
-            fail=1
-          fi
+
+          for name in SVN_USERNAME SVN_PASSWORD; do
+            value="${!name}"
+
+            if [ -z "$value" ]; then
+              echo "::error::Secret ${name} is not set."
+              fail=1
+              continue
+            fi
+
+            echo "${name}: ${#value} characters"
+
+            # Trailing newlines are the classic copy-paste failure. .org SVN
+            # usernames may legitimately contain spaces, so only the ends are
+            # checked, and CR/LF anywhere is always wrong.
+            case "$value" in
+              *$'\r'* | *$'\n'*)
+                echo "::error::Secret ${name} contains a newline or carriage return. Re-paste it without a trailing line break."
+                fail=1
+                ;;
+            esac
+            trimmed="${value#"${value%%[![:space:]]*}"}"
+            trimmed="${trimmed%"${trimmed##*[![:space:]]}"}"
+            if [ "$trimmed" != "$value" ]; then
+              echo "::error::Secret ${name} has leading or trailing whitespace."
+              fail=1
+            fi
+          done
+
+          # .org usernames are not email addresses; the SVN username is the one
+          # shown under Account & Security → SVN credentials, and it is
+          # case-sensitive.
+          case "${SVN_USERNAME}" in
+            *@*) echo "::warning::SVN_USERNAME looks like an email address. .org expects the username shown on the SVN credentials page." ;;
+          esac
+
           exit $fail
 
       # No `ref`: the wp.org assets come from the branch this workflow was

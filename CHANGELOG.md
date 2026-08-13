@@ -1,8 +1,13 @@
 # Changelog
 
+## [1.0.5] - 2026-08-13
+### Fixed
+- Small documentation improvements and typo fixes.
+
+
 ## [1.0.4] - 2026-08-12
 ### Fixed
-- The release package no longer ships JavaScript source maps.
+- The release packages no longer ship JavaScript source maps.
 
 ## [1.0.3] - 2026-08-11
 ### Fixed

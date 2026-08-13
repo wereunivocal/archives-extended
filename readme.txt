@@ -4,7 +4,7 @@ Tags: archive, widget, sidebar, classic widgets, block editor
 Requires at least: 6.8
 Tested up to: 7.0
 Requires PHP: 8.1
-Stable tag: 1.0.4
+Stable tag: 1.0.5
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -34,7 +34,7 @@ Download the latest archives-widget-extended.zip archive from the **Releases** t
 == Frequently Asked Questions ==
 
 = Your plugin is not working. Can you help me? =
-Submit a Github [issue](https://github.com/wereunivocal/cellula/issues) with all the required details to replicate your problem. We'll try our best to fix it.
+Submit a Github [issue](https://github.com/wereunivocal/archives-extended/issues) with all the required details to replicate your problem. We'll try our best to fix it.
 
 == Screenshots ==
 
@@ -44,8 +44,11 @@ Submit a Github [issue](https://github.com/wereunivocal/cellula/issues) with all
 
 == Changelog ==
 
+= 1.0.5 =
+- Small documentation improvements and typo fixes.
+
 = 1.0.4 =
-- Removed miscellaneous development files
+- Removed miscellaneous development files.
 
 = 1.0.3 =
 - The `.widget_block` class in the root container (needed for backwards compatibility) is correctly displayed.
