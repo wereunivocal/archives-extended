@@ -1,5 +1,11 @@
 # Changelog
 
+## [1.0.6] - 2026-09-26
+### Changed
+- Tested up to WordPress 7.1 and PHP 8.5 (verified on 7.1.2). 
+- Minor compatibility Fixes.
+
+
 ## [1.0.5] - 2026-08-13
 ### Fixed
 - Small documentation improvements and typo fixes.

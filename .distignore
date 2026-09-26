@@ -3,6 +3,7 @@
 .git
 .gitignore
 .gitlab-ci.yml
+.nvmrc
 .travis.yml
 .wordpress-org
 .phpcs-cache
@@ -29,6 +30,7 @@ vite.config.js
 README.md
 CLAUDE.md
 INTEGRATION-*.md
+PLAN-*.md
 wp-cli.local.yml
 yarn.lock
 tests
