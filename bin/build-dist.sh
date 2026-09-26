@@ -75,6 +75,7 @@ rsync -a --delete --delete-excluded \
 	--exclude='/CHANGELOG.md' \
 	--exclude='/CLAUDE.md' \
 	--exclude='/INTEGRATION-*.md' \
+	--exclude='/PLAN-*.md' \
 	--exclude='/README.md' \
 	--exclude='/build' \
 	--exclude='node_modules' \
