@@ -9,13 +9,27 @@ on:
 
 jobs:
   test:
-    name: PHP ${{ matrix.php-version }}
+    name: WP ${{ matrix.wp }} / PHP ${{ matrix.php-version }}
     runs-on: ubuntu-latest
 
+    # Explicit combinations rather than a cross product: the PHP floor and
+    # ceiling on each older supported WordPress branch, the full PHP range on
+    # current WordPress. Ceilings follow core's PHP compatibility table:
+    # https://make.wordpress.org/core/handbook/references/php-compatibility-and-wordpress-versions/
+    # `wp` is a major.minor branch resolved to its newest point release at run
+    # time (see bin/wp-core-source.sh), or `latest` for the newest release.
     strategy:
       fail-fast: false
       matrix:
-        php-version: [ '8.1', '8.2', '8.3', '8.4' ]
+        include:
+          - { wp: '6.8', php-version: '8.1' }
+          - { wp: '6.8', php-version: '8.4' }
+          - { wp: '7.0', php-version: '8.1' }
+          - { wp: '7.0', php-version: '8.4' }
+          - { wp: latest, php-version: '8.1' }
+          - { wp: latest, php-version: '8.2' }
+          - { wp: latest, php-version: '8.3' }
+          - { wp: latest, php-version: '8.4' }
 
     env:
       WP_ENV_PHP_VERSION: ${{ matrix.php-version }}
@@ -43,11 +57,17 @@ jobs:
       # wp-env's own "latest" resolves to a git tag on the WordPress/WordPress
       # mirror, which lags releases and breaks `start` until the sync catches
       # up. WP_ENV_CORE overrides `core` for every environment, and persists
-      # to the run/stop steps below.
-      - name: Resolve latest available WordPress
+      # to the run/stop steps below (bin/wp-env.sh leaves a preset value alone).
+      - name: Resolve WordPress ${{ matrix.wp }}
+        env:
+          WP_BRANCH: ${{ matrix.wp }}
         run: |
           set -euo pipefail
-          core="$(bin/wp-core-source.sh)"
+          if [ "${WP_BRANCH}" = "latest" ]; then
+            core="$(bin/wp-core-source.sh)"
+          else
+            core="$(bin/wp-core-source.sh "${WP_BRANCH}")"
+          fi
           echo "Using WordPress core source: ${core}"
           echo "WP_ENV_CORE=${core}" >> "$GITHUB_ENV"
 
