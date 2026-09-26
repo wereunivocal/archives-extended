@@ -2,9 +2,9 @@
 Contributors: weareunivocal
 Tags: archive, widget, sidebar, classic widgets, block editor
 Requires at least: 6.8
-Tested up to: 7.0
+Tested up to: 7.1
 Requires PHP: 8.1
-Stable tag: 1.0.5
+Stable tag: 1.0.6
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -43,6 +43,10 @@ Submit a Github [issue](https://github.com/wereunivocal/archives-extended/issues
 3. Widgets for the Classic Editor
 
 == Changelog ==
+
+= 1.0.6 =
+- Tested up to WordPress 7.1 and PHP 8.5 (verified on 7.1.2).
+- Minor compatibility Fixes.
 
 = 1.0.5 =
 - Small documentation improvements and typo fixes.
