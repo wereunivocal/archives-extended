@@ -18,7 +18,7 @@ If you find this plugin useful, a donation is genuinely appreciated. You can buy
 ## Requirements
 
 * PHP 8.1+
-* [WordPress](http://wordpress.org/) 7.0+
+* [WordPress](https://wordpress.org/) 6.8+
 
 ## Installation
 
