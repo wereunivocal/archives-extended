@@ -111,6 +111,23 @@ trait HtmlAssertions {
 	}
 
 	/**
+	 * Strips core's inline dropdown-navigation handler attribute.
+	 *
+	 * Before WordPress 6.9, core/archives wired its dropdown with an inline
+	 * `onchange` attribute rather than the inline <script> it emits since.
+	 * It is the same behavior our enqueued module replaces, so parity
+	 * comparisons strip it from core's side. Only this exact handler is
+	 * removed: any other attribute difference still fails the compare.
+	 */
+	protected function strip_inline_dropdown_handler( string $html ): string {
+		return str_replace(
+			' onchange="document.location.href=this.options[this.selectedIndex].value;"',
+			'',
+			$html
+		);
+	}
+
+	/**
 	 * Parses an HTML fragment into a DOMDocument with a synthetic <aex-root> wrapper.
 	 *
 	 * The wrapper lets us compare fragments with multiple top-level elements

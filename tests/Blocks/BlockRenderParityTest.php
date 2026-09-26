@@ -71,6 +71,10 @@ class BlockRenderParityTest extends WP_UnitTestCase {
 		$theirs_normalized = $this->strip_inline_scripts( $theirs_normalized );
 		$ours_normalized   = $this->strip_inline_scripts( $ours_normalized );
 
+		// WordPress < 6.9 wires the same navigation through an inline
+		// `onchange` attribute instead of a script; see the helper.
+		$theirs_normalized = $this->strip_inline_dropdown_handler( $theirs_normalized );
+
 		$this->assertHtmlStructurallyEquals(
 			$theirs_normalized,
 			$ours_normalized,
