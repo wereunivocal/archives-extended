@@ -282,6 +282,7 @@ class AEXWS_Widget extends WP_Widget {
 	 * Renders the widget configuration form in the admin sidebar.
 	 *
 	 * @param array<string, mixed> $instance Saved widget settings.
+	 * @return null
 	 */
 	public function form( $instance ) {
 		$instance = wp_parse_args(
@@ -326,5 +327,7 @@ class AEXWS_Widget extends WP_Widget {
 			<label for="<?php echo esc_attr( $this->get_field_id( 'count' ) ); ?>"><?php esc_html_e( 'Show post counts', 'archives-widget-extended' ); ?></label>
 		</p>
 		<?php
+
+		return null;
 	}
 }
