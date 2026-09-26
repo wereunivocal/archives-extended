@@ -64,6 +64,14 @@ jobs:
             echo "::error file=readme.txt::'Stable tag:' does not match tag ${VERSION}."
             fail=1
           fi
+          # The manifests are not shipped, but drifted unnoticed before
+          # (1.0.5 released with both still on 1.0.4).
+          for manifest in composer.json package.json; do
+            if [ "$(jq -r .version "${manifest}")" != "${VERSION}" ]; then
+              echo "::error file=${manifest}::'version' does not match tag ${VERSION}."
+              fail=1
+            fi
+          done
           exit $fail
 
   phpunit:
