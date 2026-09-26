@@ -87,7 +87,7 @@ jobs:
       - name: Setup Node
         uses: actions/setup-node@v7
         with:
-          node-version: '24'
+          node-version-file: .nvmrc
 
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
