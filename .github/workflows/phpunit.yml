@@ -25,11 +25,12 @@ jobs:
           - { wp: '6.8', php-version: '8.1' }
           - { wp: '6.8', php-version: '8.4' }
           - { wp: '7.0', php-version: '8.1' }
-          - { wp: '7.0', php-version: '8.4' }
+          - { wp: '7.0', php-version: '8.5' }
           - { wp: latest, php-version: '8.1' }
           - { wp: latest, php-version: '8.2' }
           - { wp: latest, php-version: '8.3' }
           - { wp: latest, php-version: '8.4' }
+          - { wp: latest, php-version: '8.5' }
 
     env:
       WP_ENV_PHP_VERSION: ${{ matrix.php-version }}
